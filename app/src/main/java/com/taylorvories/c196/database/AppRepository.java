@@ -9,6 +9,8 @@ import java.util.concurrent.Executors;
 
 import androidx.lifecycle.LiveData;
 
+import com.taylorvories.c196.utilities.SampleData;
+
 public class AppRepository {
     private static AppRepository ourInstance;
 
@@ -28,14 +30,9 @@ public class AppRepository {
         mTerms = getAllTerms();
     }
 
-//    public void addSampleData() {
-//        executor.execute(new Runnable() {
-//            @Override
-//            public void run() {
-//                mDb.termDao().insertAll(SampleData.getTerms());
-//            }
-//        });
-//    }
+    public void addSampleData() {
+        executor.execute(() -> mDb.termDao().insertAll(SampleData.getTerms()));
+    }
 
     private LiveData<List<Term>> getAllTerms() {
         return mDb.termDao().getAll();

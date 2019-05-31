@@ -19,8 +19,15 @@ public class Term {
 
     }
 
+    @Ignore
     public Term(int id, String title, Date startDate, Date endDate) {
         this.id = id;
+        this.title = title;
+        this.startDate = startDate;
+        this.endDate = endDate;
+    }
+
+    public Term(String title, Date startDate, Date endDate) {
         this.title = title;
         this.startDate = startDate;
         this.endDate = endDate;
