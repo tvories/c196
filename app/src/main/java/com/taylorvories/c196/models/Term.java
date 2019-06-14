@@ -1,4 +1,4 @@
-package com.taylorvories.c196.database;
+package com.taylorvories.c196.models;
 
 import java.util.Date;
 

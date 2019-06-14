@@ -9,6 +9,7 @@ import java.util.concurrent.Executors;
 
 import androidx.lifecycle.LiveData;
 
+import com.taylorvories.c196.models.Term;
 import com.taylorvories.c196.utilities.SampleData;
 
 public class AppRepository {

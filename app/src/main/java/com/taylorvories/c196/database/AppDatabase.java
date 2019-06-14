@@ -2,14 +2,12 @@ package com.taylorvories.c196.database;
 
 import android.content.Context;
 
-import androidx.annotation.NonNull;
 import androidx.room.Database;
-import androidx.room.DatabaseConfiguration;
-import androidx.room.InvalidationTracker;
 import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
-import androidx.sqlite.db.SupportSQLiteOpenHelper;
+
+import com.taylorvories.c196.models.Term;
 
 @Database(entities = {Term.class}, version = 1)
 @TypeConverters(DateConverter.class)

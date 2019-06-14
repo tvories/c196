@@ -1,26 +1,23 @@
 package com.taylorvories.c196;
 
-import android.content.Intent;
+import android.content.Context;
 import android.os.Bundle;
-import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.google.android.material.snackbar.Snackbar;
-import com.taylorvories.c196.database.Term;
+
+import com.taylorvories.c196.models.Term;
 import com.taylorvories.c196.ui.TermAdapter;
 import com.taylorvories.c196.viewmodel.MainViewModel;
 
-import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,8 +33,14 @@ public class MainActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     void fabClickHandler() {
-        Intent intent = new Intent(this, EditorActivity.class);
-        startActivity(intent);
+        //Intent intent = new Intent(this, EditorActivity.class);
+        //startActivity(intent);
+        Context context = getApplicationContext();
+        CharSequence text = "Add Term Pressed!";
+        int duration = Toast.LENGTH_SHORT;
+
+        Toast toast = Toast.makeText(context, text, duration);
+        toast.show();
     }
 
     private List<Term> termData = new ArrayList<>();

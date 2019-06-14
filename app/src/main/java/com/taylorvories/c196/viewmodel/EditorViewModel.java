@@ -8,7 +8,7 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.MutableLiveData;
 
 import com.taylorvories.c196.database.AppRepository;
-import com.taylorvories.c196.database.Term;
+import com.taylorvories.c196.models.Term;
 
 import java.util.Date;
 import java.util.concurrent.Executor;

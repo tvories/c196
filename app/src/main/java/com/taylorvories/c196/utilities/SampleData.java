@@ -1,6 +1,6 @@
 package com.taylorvories.c196.utilities;
 
-import com.taylorvories.c196.database.Term;
+import com.taylorvories.c196.models.Term;
 
 import java.util.ArrayList;
 import java.util.Calendar;

@@ -9,6 +9,8 @@ import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
+import com.taylorvories.c196.models.Term;
+
 @Dao
 public interface TermDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
