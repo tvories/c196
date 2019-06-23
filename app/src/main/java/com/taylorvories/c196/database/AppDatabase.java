@@ -7,9 +7,10 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.Term;
 
-@Database(entities = {Term.class}, version = 1)
+@Database(entities = {Term.class, Course.class}, version = 1)
 @TypeConverters(DateConverter.class)
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "AppDatabase.db";
@@ -17,6 +18,7 @@ public abstract class AppDatabase extends RoomDatabase {
     private static final Object LOCK = new Object();
 
     public abstract TermDao termDao();
+    public abstract CourseDao courseDao();
 
     public static AppDatabase getInstance(Context context) {
         if (instance == null) {

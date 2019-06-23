@@ -33,6 +33,7 @@ public class AppRepository {
 
     public void addSampleData() {
         executor.execute(() -> mDb.termDao().insertAll(SampleData.getTerms()));
+        executor.execute(() -> mDb.courseDao().insertAll(SampleData.getCourses()));
     }
 
     private LiveData<List<Term>> getAllTerms() {
