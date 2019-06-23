@@ -10,8 +10,8 @@ import androidx.room.TypeConverters;
 import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.Term;
 
-@Database(entities = {Term.class, Course.class}, version = 1)
-@TypeConverters(DateConverter.class)
+@Database(entities = {Term.class, Course.class}, version = 2)
+@TypeConverters({DateConverter.class, CourseStatusConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     public static final String DATABASE_NAME = "AppDatabase.db";
     private static volatile AppDatabase instance;
@@ -25,7 +25,7 @@ public abstract class AppDatabase extends RoomDatabase {
             synchronized (LOCK) {
                 if (instance == null) {
                     instance = Room.databaseBuilder(context.getApplicationContext(),
-                            AppDatabase.class, DATABASE_NAME).build();
+                            AppDatabase.class, DATABASE_NAME).fallbackToDestructiveMigration().build();
                 }
             }
         }
