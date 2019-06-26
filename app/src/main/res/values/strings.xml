@@ -8,4 +8,6 @@
     <string name="title_activity_editor">EditorActivity</string>
     <string name="new_term">New term</string>
     <string name="edit_term">Edit term</string>
+    <string name="nav_username">Taylor Vories</string>
+    <string name="nav_description">C196 - Android Scheduling App</string>
 </resources>

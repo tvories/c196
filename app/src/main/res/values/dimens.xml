@@ -4,4 +4,6 @@
     <dimen name="list_fab_margin">8dp</dimen>
     <dimen name="app_bar_height">180dp</dimen>
     <dimen name="text_margin">16dp</dimen>
+    <dimen name="navigation_header_height">200dp</dimen>
+    <dimen name="navigation_padding">15dp</dimen>
 </resources>
