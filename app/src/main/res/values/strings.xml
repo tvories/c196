@@ -10,4 +10,8 @@
     <string name="edit_term">Edit term</string>
     <string name="nav_username">Taylor Vories</string>
     <string name="nav_description">C196 - Android Scheduling App</string>
+    <string name="nav_term_title">Terms</string>
+    <string name="nav_course_title">Courses</string>
+    <string name="nav_assessments_title">Assessments</string>
+    <string name="nav_mentor_title">Mentors</string>
 </resources>

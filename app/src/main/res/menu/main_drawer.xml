@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_terms"
+            android:icon="@drawable/ic_term_icon"
+            android:title="@string/nav_term_title"/>
+
+        <item
+            android:id="@+id/nav_courses"
+            android:icon="@drawable/ic_course_icon"
+            android:title="@string/nav_course_title"/>
+
+        <item
+            android:id="@+id/nav_assessments"
+            android:icon="@drawable/ic_assessments_icon"
+            android:title="@string/nav_assessments_title"/>
+
+        <item
+            android:id="@+id/nav_mentors"
+            android:icon="@drawable/ic_mentor_icon"
+            android:title="@string/nav_mentor_title"/>
+    </group>
+
+</menu>
