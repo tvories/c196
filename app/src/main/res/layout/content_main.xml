@@ -6,11 +6,30 @@
     android:layout_height="match_parent"
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:showIn="@layout/activity_main"
+    tools:context=".MainActivity"
     android:gravity="center">
 
     <androidx.cardview.widget.CardView
         android:layout_width="match_parent"
         android:layout_height="150dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/label_terms"
+            android:layout_gravity="center_horizontal"
+            android:textSize="@dimen/main_cardview_text_size"
+            android:text="@string/view_terms_card" />
+
+        <ImageButton
+            android:background="@color/transparent"
+            android:layout_gravity="bottom"
+            android:id="@+id/btn_terms"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:onClick="showTerms"
+            android:src="@drawable/ic_term_icon"
+            android:contentDescription="@string/view_terms"/>
 
     </androidx.cardview.widget.CardView>
     

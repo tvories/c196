@@ -14,4 +14,6 @@
     <string name="nav_course_title">Courses</string>
     <string name="nav_assessments_title">Assessments</string>
     <string name="nav_mentor_title">Mentors</string>
+    <string name="view_terms_card">View Terms</string>
+    <string name="view_terms">View Terms</string>
 </resources>
