@@ -3,12 +3,17 @@ package com.taylorvories.c196;
 import android.content.Context;
 import android.os.Bundle;
 
+import com.google.android.material.navigation.NavigationView;
 import com.taylorvories.c196.models.Term;
 import com.taylorvories.c196.ui.TermAdapter;
 import com.taylorvories.c196.viewmodel.MainViewModel;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.ActionBarDrawerToggle;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.core.view.GravityCompat;
+import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
@@ -17,6 +22,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -26,25 +32,10 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
+    DrawerLayout mDrawer;
+    NavigationView mNavigationView;
 
-    @BindView(R.id.recycler_view)
-    RecyclerView mRecyclerView;
-
-    @OnClick(R.id.fab)
-    void fabClickHandler() {
-        //Intent intent = new Intent(this, EditorActivity.class);
-        //startActivity(intent);
-        Context context = getApplicationContext();
-        CharSequence text = "Add Term Pressed!";
-        int duration = Toast.LENGTH_SHORT;
-
-        Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
-    }
-
-    private List<Term> termData = new ArrayList<>();
-    private TermAdapter mAdapter;
     private MainViewModel mViewModel;
 
     @Override
@@ -54,38 +45,13 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-
-        ButterKnife.bind(this);
-        initRecyclerView();
-        initViewModel();
-    }
-
-    private void initViewModel() {
-        final Observer<List<Term>> termObserver =
-                termEntities -> {
-                    termData.clear();
-                    termData.addAll(termEntities);
-
-                    if (mAdapter == null) {
-                        mAdapter = new TermAdapter(termData, MainActivity.this);
-                        mRecyclerView.setAdapter(mAdapter);
-                    } else {
-                        mAdapter.notifyDataSetChanged();
-                    }
-                };
-        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
-        mViewModel.mTerms.observe(this, termObserver);
-
-    }
-
-    private void initRecyclerView() {
-        mRecyclerView.setHasFixedSize(true);
-        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        mRecyclerView.setLayoutManager(layoutManager);
-
-        DividerItemDecoration divider = new DividerItemDecoration(
-                mRecyclerView.getContext(), layoutManager.getOrientation());
-        mRecyclerView.addItemDecoration(divider);
+        mDrawer = findViewById(R.id.drawer_layout);
+        mNavigationView = findViewById(R.id.navigation_view);
+        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
+                this, mDrawer, toolbar, R.string.nav_open, R.string.nav_close);
+        mDrawer.addDrawerListener(toggle);
+        toggle.syncState();
+        mNavigationView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -120,5 +86,46 @@ public class MainActivity extends AppCompatActivity {
 
     private void addSampleData() {
         mViewModel.addSampleData();
+    }
+
+    public void showTerms(View view) {
+        //TODO: Write method
+    }
+
+    public void showCourses(View view) {
+        //TODO: Write method
+    }
+
+    public void showAssessments(View view) {
+        //TODO: Write Method
+    }
+
+    @Override
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
+        int id = item.getItemId();
+        int duration = Toast.LENGTH_SHORT;
+        Toast toast;
+
+        switch (id) {
+            case R.id.nav_terms:
+                toast = Toast.makeText(this, "Terms pressed", duration);
+                toast.show();
+                break;
+            case R.id.nav_courses:
+                toast = Toast.makeText(this, "Courses pressed", duration);
+                toast.show();
+                break;
+            case R.id.nav_assessments:
+                toast = Toast.makeText(this, "Mentors pressed", duration);
+                toast.show();
+                break;
+            case R.id.nav_mentors:
+                toast = Toast.makeText(this, "Mentors pressed", duration);
+                toast.show();
+                break;
+        }
+        DrawerLayout drawer = findViewById(R.id.drawer_layout);
+        drawer.closeDrawer(GravityCompat.START);
+        return true;
     }
 }
