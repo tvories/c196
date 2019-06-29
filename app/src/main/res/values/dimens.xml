@@ -11,4 +11,9 @@
     <dimen name="main_cardview_layout_margin_startend">5dp</dimen>
     <dimen name="main_cardview_corner_rad">10dp</dimen>
     <dimen name="main_cardview_text_padding">20dp</dimen>
+    <dimen name="main_status_label">20sp</dimen>
+    <dimen name="main_status_padding">15dp</dimen>
+    <dimen name="main_status_space">40dp</dimen>
+    <dimen name="main_status_label_width">150dp</dimen>
+    <dimen name="main_status_circle">8dp</dimen>
 </resources>

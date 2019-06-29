@@ -23,6 +23,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import java.util.ArrayList;
@@ -36,6 +37,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     DrawerLayout mDrawer;
     NavigationView mNavigationView;
 
+    private List<Term> termData = new ArrayList<>();
+    private TermAdapter mAdapter;
     private MainViewModel mViewModel;
 
     @Override
@@ -51,7 +54,38 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 this, mDrawer, toolbar, R.string.nav_open, R.string.nav_close);
         mDrawer.addDrawerListener(toggle);
         toggle.syncState();
+
+        // Tells icons to use full color
+        mNavigationView.setItemIconTintList(null);
         mNavigationView.setNavigationItemSelectedListener(this);
+        initViewModel();
+        setStatusNumbers();
+    }
+
+    private void setStatusNumbers() {
+        // Set text for current status
+        TextView termStatus = findViewById(R.id.status_terms_count);
+        TextView courseStatus = findViewById(R.id.status_courses_count);
+        TextView assessmentStatus = findViewById(R.id.status_assessments_count);
+
+        termStatus.setText("3");
+        courseStatus.setText("7");
+        assessmentStatus.setText("10");
+    }
+
+    private void initViewModel() {
+        final Observer<List<Term>> termObserver =
+            termEntities -> {
+                termData.clear();
+                termData.addAll(termEntities);
+                if (mAdapter == null) {
+                    mAdapter = new TermAdapter(termData, MainActivity.this);
+                } else {
+                    mAdapter.notifyDataSetChanged();
+                }
+            };
+        mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
+        mViewModel.mTerms.observe(this, termObserver);
     }
 
     @Override
@@ -116,7 +150,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 toast.show();
                 break;
             case R.id.nav_assessments:
-                toast = Toast.makeText(this, "Mentors pressed", duration);
+                toast = Toast.makeText(this, "Assessments pressed", duration);
                 toast.show();
                 break;
             case R.id.nav_mentors:
