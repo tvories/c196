@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setStatusNumbers() {
+        //TODO: Figure out why this isn't working
         mViewModel.mTerms.observe(this, terms -> termCount = terms.size());
         // Set text for current status
         TextView termStatus = findViewById(R.id.status_terms_count);
