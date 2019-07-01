@@ -48,12 +48,9 @@ public class EditorActivity extends AppCompatActivity {
     private void initViewModel() {
         mViewModel = ViewModelProviders.of(this).get(EditorViewModel.class);
 
-        mViewModel.mLiveTerm.observe(this, new Observer<Term>() {
-            @Override
-            public void onChanged(Term term) {
-                if(term != null && !mEditing) {
-                    mTextView.setText(term.getTitle());
-                }
+        mViewModel.mLiveTerm.observe(this, term -> {
+            if(term != null && !mEditing) {
+                mTextView.setText(term.getTitle());
             }
         });
 

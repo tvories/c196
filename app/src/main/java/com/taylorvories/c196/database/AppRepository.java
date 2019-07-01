@@ -40,13 +40,9 @@ public class AppRepository {
         return mDb.termDao().getAll();
     }
 
-    public void deleteAllTerms() {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                mDb.termDao().deleteAll();
-            }
-        });
+    public void deleteAllData() {
+        executor.execute(() -> mDb.termDao().deleteAll());
+        executor.execute(() -> mDb.courseDao().deleteAll());
     }
 
     public Term getTermById(int termId) {

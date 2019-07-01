@@ -1,6 +1,5 @@
 package com.taylorvories.c196;
 
-import android.content.Context;
 import android.os.Bundle;
 
 import com.google.android.material.navigation.NavigationView;
@@ -16,9 +15,6 @@ import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.Menu;
 import android.view.MenuItem;
@@ -29,10 +25,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
-import butterknife.ButterKnife;
-import butterknife.OnClick;
-
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawer;
     NavigationView mNavigationView;
@@ -40,6 +32,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private List<Term> termData = new ArrayList<>();
     private TermAdapter mAdapter;
     private MainViewModel mViewModel;
+    private int termCount, courseCount, assessmentCount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,14 +56,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void setStatusNumbers() {
+        mViewModel.mTerms.observe(this, terms -> termCount = terms.size());
         // Set text for current status
         TextView termStatus = findViewById(R.id.status_terms_count);
         TextView courseStatus = findViewById(R.id.status_courses_count);
         TextView assessmentStatus = findViewById(R.id.status_assessments_count);
 
-        termStatus.setText("3");
-        courseStatus.setText("7");
-        assessmentStatus.setText("10");
+        termStatus.setText(Integer.toString(termCount));
+        courseStatus.setText(Integer.toString(courseCount));
+        assessmentStatus.setText(Integer.toString(assessmentCount));
     }
 
     private void initViewModel() {
@@ -107,15 +101,15 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             addSampleData();
             return true;
         } else if (id == R.id.action_delete_all) {
-            deleteAllTerms();
+            deleteAllData();
             return true;
         }
 
         return super.onOptionsItemSelected(item);
     }
 
-    private void deleteAllTerms() {
-        mViewModel.deleteAllTerms();
+    private void deleteAllData() {
+        mViewModel.deleteAllData();
     }
 
     private void addSampleData() {

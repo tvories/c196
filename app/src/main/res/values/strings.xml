@@ -3,7 +3,7 @@
     <string name="action_settings">Settings</string>
     <string name="enter_title">Edit title</string>
     <string name="action_add_sample_data">Add sample data</string>
-    <string name="delete_all">Delete all terms</string>
+    <string name="delete_all">Delete all data</string>
     <string name="delete">Delete</string>
     <string name="title_activity_editor">EditorActivity</string>
     <string name="new_term">New term</string>
