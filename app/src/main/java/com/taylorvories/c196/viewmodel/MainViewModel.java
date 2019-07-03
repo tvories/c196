@@ -20,7 +20,11 @@ public class MainViewModel extends AndroidViewModel {
         super(application);
 
         mRepository = AppRepository.getInstance(application.getApplicationContext());
-        mTerms = mRepository.mTerms;
+        mTerms = mRepository.getAllTerms();
+    }
+
+    public LiveData<List<Term>> getAllTerms() {
+        return mRepository.getAllTerms();
     }
 
     public void addSampleData() {

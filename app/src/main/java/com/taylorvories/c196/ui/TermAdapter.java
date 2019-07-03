@@ -49,7 +49,6 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.ViewHolder> {
             int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(mContext, term.getTitle(), duration);
             toast.show();
-
         });
     }
 

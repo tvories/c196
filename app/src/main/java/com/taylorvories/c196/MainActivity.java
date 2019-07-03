@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
+import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -32,7 +33,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private List<Term> termData = new ArrayList<>();
     private TermAdapter mAdapter;
     private MainViewModel mViewModel;
-    private int termCount, courseCount, assessmentCount;
+    private TextView termStatus, courseStatus, assessmentStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,21 +52,18 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Tells icons to use full color
         mNavigationView.setItemIconTintList(null);
         mNavigationView.setNavigationItemSelectedListener(this);
+
         initViewModel();
-        setStatusNumbers();
+
+        // Initialize status text views
+        termStatus = findViewById(R.id.status_terms_count);
+        courseStatus = findViewById(R.id.status_courses_count);
+        assessmentStatus = findViewById(R.id.status_assessments_count);
+
     }
 
-    private void setStatusNumbers() {
-        //TODO: Figure out why this isn't working
-        mViewModel.mTerms.observe(this, terms -> termCount = terms.size());
-        // Set text for current status
-        TextView termStatus = findViewById(R.id.status_terms_count);
-        TextView courseStatus = findViewById(R.id.status_courses_count);
-        TextView assessmentStatus = findViewById(R.id.status_assessments_count);
-
-        termStatus.setText(Integer.toString(termCount));
-        courseStatus.setText(Integer.toString(courseCount));
-        assessmentStatus.setText(Integer.toString(assessmentCount));
+    private void setStatusNumbers(int count, TextView textView) {
+        textView.setText(Integer.toString(count));
     }
 
     private void initViewModel() {
@@ -73,6 +71,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             termEntities -> {
                 termData.clear();
                 termData.addAll(termEntities);
+                // Updates term status number
+                setStatusNumbers(termEntities.size(), termStatus);
                 if (mAdapter == null) {
                     mAdapter = new TermAdapter(termData, MainActivity.this);
                 } else {

@@ -14,8 +14,10 @@ import com.taylorvories.c196.utilities.SampleData;
 
 public class AppRepository {
     private static AppRepository ourInstance;
-
+    private TermDao termDao;
+    private CourseDao courseDao;
     public LiveData<List<Term>> mTerms;
+
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();
 
@@ -29,6 +31,8 @@ public class AppRepository {
     private AppRepository(Context context) {
         mDb = AppDatabase.getInstance(context);
         mTerms = getAllTerms();
+        termDao = mDb.termDao();
+        courseDao = mDb.courseDao();
     }
 
     public void addSampleData() {
@@ -36,7 +40,7 @@ public class AppRepository {
         executor.execute(() -> mDb.courseDao().insertAll(SampleData.getCourses()));
     }
 
-    private LiveData<List<Term>> getAllTerms() {
+    public LiveData<List<Term>> getAllTerms() {
         return mDb.termDao().getAll();
     }
 
@@ -50,20 +54,10 @@ public class AppRepository {
     }
 
     public void insertTerm(final Term term) {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                mDb.termDao().insertTerm(term);
-            }
-        });
+        executor.execute(() -> mDb.termDao().insertTerm(term));
     }
 
     public void deleteTerm(final Term term) {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                mDb.termDao().deleteTerm(term);
-            }
-        });
+        executor.execute(() -> mDb.termDao().deleteTerm(term));
     }
 }
