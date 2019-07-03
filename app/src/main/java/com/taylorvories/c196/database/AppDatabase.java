@@ -13,7 +13,7 @@ import com.taylorvories.c196.models.Term;
 @Database(entities = {Term.class, Course.class}, version = 2)
 @TypeConverters({DateConverter.class, CourseStatusConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
-    public static final String DATABASE_NAME = "AppDatabase.db";
+    private static final String DATABASE_NAME = "AppDatabase.db";
     private static volatile AppDatabase instance;
     private static final Object LOCK = new Object();
 

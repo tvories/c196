@@ -19,7 +19,7 @@ public class AppRepository {
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();
 
-    public static AppRepository getInsance(Context context) {
+    public static AppRepository getInstance(Context context) {
         if(ourInstance == null) {
             ourInstance = new AppRepository(context);
         }

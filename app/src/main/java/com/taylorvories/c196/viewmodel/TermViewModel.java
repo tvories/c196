@@ -11,23 +11,15 @@ import com.taylorvories.c196.models.Term;
 
 import java.util.List;
 
-public class MainViewModel extends AndroidViewModel {
+public class TermViewModel extends AndroidViewModel {
 
     public LiveData<List<Term>> mTerms;
     private AppRepository mRepository;
 
-    public MainViewModel(@NonNull Application application) {
+    public TermViewModel(@NonNull Application application) {
         super(application);
 
         mRepository = AppRepository.getInstance(application.getApplicationContext());
         mTerms = mRepository.mTerms;
-    }
-
-    public void addSampleData() {
-        mRepository.addSampleData();
-    }
-
-    public void deleteAllData() {
-        mRepository.deleteAllData();
     }
 }

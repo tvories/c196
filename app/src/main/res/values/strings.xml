@@ -23,4 +23,5 @@
     <string name="main_status_courses">Courses</string>
     <string name="main_status_terms">Terms</string>
     <string name="main_status_assessment">Assessments</string>
+    <string name="title_activity_terms">Terms</string>
 </resources>

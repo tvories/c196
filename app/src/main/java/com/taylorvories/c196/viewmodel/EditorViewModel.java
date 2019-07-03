@@ -21,7 +21,7 @@ public class EditorViewModel extends AndroidViewModel {
 
     public EditorViewModel(@NonNull Application application) {
         super(application);
-        mRepository = AppRepository.getInsance(getApplication());
+        mRepository = AppRepository.getInstance(getApplication());
     }
 
     public void loadData(final int termId) {
