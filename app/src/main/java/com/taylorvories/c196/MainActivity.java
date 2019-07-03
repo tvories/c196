@@ -1,5 +1,6 @@
 package com.taylorvories.c196;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.navigation.NavigationView;
@@ -118,7 +119,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void showTerms(View view) {
-        //TODO: Write method
+        Intent intent = new Intent(this, TermActivity.class);
+        startActivity(intent);
     }
 
     public void showCourses(View view) {
