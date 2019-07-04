@@ -211,4 +211,72 @@
             </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <com.google.android.material.card.MaterialCardView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:layout_marginStart="@dimen/main_cardview_layout_margin_startend"
+        android:layout_marginEnd="@dimen/main_cardview_layout_margin_startend"
+        app:cardCornerRadius="@dimen/main_cardview_corner_rad"
+        android:minHeight="@dimen/main_cardview_minheight">
+
+        <ImageButton
+            android:background="@color/transparent"
+            android:layout_gravity="bottom"
+            android:id="@+id/btn_mentors"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:onClick="showAssessments"
+            android:contentDescription="@string/view_assessments_card"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:layout_width="100dp"
+                android:layout_height="match_parent"
+                android:layout_gravity="start|center"
+                android:padding="10dp"
+                android:scaleType="fitXY"
+                android:src="@drawable/ic_mentor_icon"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/main_cardview_layout_margin_startend"
+                android:layout_marginEnd="@dimen/main_cardview_layout_margin_startend"
+                android:paddingStart="15dp"
+                android:paddingEnd="15dp"
+                android:id="@+id/label_mentors"
+                android:layout_gravity="center"
+                android:textSize="@dimen/main_cardview_text_size"
+                android:text="@string/view_mentors_card"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"/>
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="@dimen/main_status_margin"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center|end"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/colorAccent"
+                android:gravity="center"
+                android:minWidth="@dimen/main_status_circle"
+                android:minHeight="@dimen/main_status_circle">
+
+                <TextView
+                    android:id="@+id/status_mentors_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="@dimen/main_status_text_size"
+                    android:padding="6dp" />
+            </LinearLayout>
+        </LinearLayout>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

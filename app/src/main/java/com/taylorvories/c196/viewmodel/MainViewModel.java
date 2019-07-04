@@ -9,6 +9,7 @@ import androidx.lifecycle.LiveData;
 import com.taylorvories.c196.database.AppRepository;
 import com.taylorvories.c196.models.Assessment;
 import com.taylorvories.c196.models.Course;
+import com.taylorvories.c196.models.Mentor;
 import com.taylorvories.c196.models.Term;
 
 import java.util.List;
@@ -18,6 +19,7 @@ public class MainViewModel extends AndroidViewModel {
     public LiveData<List<Term>> mTerms;
     public LiveData<List<Course>> mCourses;
     public LiveData<List<Assessment>> mAssessments;
+    public LiveData<List<Mentor>> mMentors;
     private AppRepository mRepository;
 
     public MainViewModel(@NonNull Application application) {
@@ -27,6 +29,7 @@ public class MainViewModel extends AndroidViewModel {
         mTerms = mRepository.getAllTerms();
         mCourses = mRepository.getAllCourses();
         mAssessments = mRepository.getAllAssessments();
+        mMentors = mRepository.getAllMentors();
 
     }
 

@@ -24,4 +24,7 @@
     <string name="main_status_terms">Terms</string>
     <string name="main_status_assessment">Assessments</string>
     <string name="title_activity_terms">Terms</string>
+    <string name="view_mentors_card">Mentors</string>
+    <string name="nav_home_title">Home</string>
+    <string name="term_details">Term Details</string>
 </resources>

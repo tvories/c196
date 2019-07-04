@@ -6,6 +6,7 @@ import android.os.Bundle;
 import com.google.android.material.navigation.NavigationView;
 import com.taylorvories.c196.models.Assessment;
 import com.taylorvories.c196.models.Course;
+import com.taylorvories.c196.models.Mentor;
 import com.taylorvories.c196.models.Term;
 import com.taylorvories.c196.ui.TermAdapter;
 import com.taylorvories.c196.viewmodel.MainViewModel;
@@ -38,7 +39,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     private List<Assessment> assessmentData = new ArrayList<>();
     private TermAdapter mAdapter;
     private MainViewModel mViewModel;
-    private TextView termStatus, courseStatus, assessmentStatus;
+    private TextView termStatus, courseStatus, assessmentStatus, mentorStatus;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,6 +65,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         termStatus = findViewById(R.id.status_terms_count);
         courseStatus = findViewById(R.id.status_courses_count);
         assessmentStatus = findViewById(R.id.status_assessments_count);
+        mentorStatus = findViewById(R.id.status_mentors_count);
 
     }
 
@@ -102,10 +104,17 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // Updates assessment status number
                 setStatusNumbers(assessmentEntities.size(), assessmentStatus);
             };
+
+        // Mentor observer
+        final Observer<List<Mentor>> mentorObserver =
+            mentorEntities -> {
+                setStatusNumbers(mentorEntities.size(), mentorStatus);
+            };
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mViewModel.mTerms.observe(this, termObserver);
         mViewModel.mCourses.observe(this, courseObserver);
         mViewModel.mAssessments.observe(this, assessmentObserver);
+        mViewModel.mMentors.observe(this, mentorObserver);
     }
 
     @Override
