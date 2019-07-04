@@ -10,112 +10,6 @@
     android:gravity="start"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:padding="10dp"
-        android:minHeight="120dp">
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/main_status_padding">
-            <LinearLayout
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:minWidth="@dimen/main_status_circle"
-                android:minHeight="@dimen/main_status_circle"
-                android:gravity="center"
-                android:backgroundTint="@color/colorAccent"
-                android:background="@drawable/rounded_corners">
-
-                <TextView
-                    android:id="@+id/status_terms_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:layout_gravity="start|top"/>
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:minWidth="@dimen/main_status_label_width"
-                android:paddingStart="@dimen/main_status_padding"
-                android:paddingEnd="0dp"
-                android:layout_height="wrap_content"
-                android:text="@string/main_status_terms"
-                android:textSize="@dimen/main_status_label"
-                android:layout_gravity="start|top" />
-
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:paddingBottom="@dimen/main_status_padding">
-            <LinearLayout
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:minWidth="@dimen/main_status_circle"
-                android:minHeight="@dimen/main_status_circle"
-                android:gravity="center"
-                android:backgroundTint="@color/colorAccent"
-                android:background="@drawable/rounded_corners">
-
-                <TextView
-                    android:id="@+id/status_courses_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:layout_gravity="start|top" />
-            </LinearLayout>
-            <TextView
-                android:layout_width="wrap_content"
-                android:minWidth="@dimen/main_status_label_width"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/main_status_padding"
-                android:paddingEnd="0dp"
-                android:text="@string/main_status_courses"
-                android:textSize="@dimen/main_status_label"/>
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content">
-            <LinearLayout
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:minWidth="@dimen/main_status_circle"
-                android:minHeight="@dimen/main_status_circle"
-                android:gravity="center"
-                android:backgroundTint="@color/colorAccent"
-                android:background="@drawable/rounded_corners">
-
-                <TextView
-                    android:id="@+id/status_assessments_count"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:padding="6dp"
-                    android:layout_gravity="start|top" />
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:minWidth="@dimen/main_status_label_width"
-                android:layout_height="wrap_content"
-                android:paddingStart="@dimen/main_status_padding"
-                android:paddingEnd="0dp"
-                android:text="@string/main_status_assessment"
-                android:textSize="@dimen/main_status_label"/>
-
-
-        </LinearLayout>
-
-    </LinearLayout>
-
     <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -156,8 +50,32 @@
                 android:paddingStart="@dimen/main_cardview_text_padding"
                 android:text="@string/view_terms_card"
                 android:textSize="@dimen/main_cardview_text_size" />
-        </LinearLayout>
 
+            <Space
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"/>
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="@dimen/main_status_margin"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center|end"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/colorAccent"
+                android:gravity="center"
+                android:minWidth="@dimen/main_status_circle"
+                android:minHeight="@dimen/main_status_circle">
+
+                <TextView
+                    android:id="@+id/status_terms_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="@dimen/main_status_text_size"
+                    android:padding="6dp" />
+            </LinearLayout>
+        </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
     <com.google.android.material.card.MaterialCardView
@@ -199,6 +117,30 @@
                 android:layout_gravity="center"
                 android:textSize="@dimen/main_cardview_text_size"
                 android:text="@string/view_courses_card"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"/>
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="@dimen/main_status_margin"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center|end"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/colorAccent"
+                android:gravity="center"
+                android:minWidth="@dimen/main_status_circle"
+                android:minHeight="@dimen/main_status_circle">
+
+                <TextView
+                    android:id="@+id/status_courses_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="@dimen/main_status_text_size"
+                    android:padding="6dp" />
+            </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 
@@ -243,6 +185,30 @@
                 android:layout_gravity="center"
                 android:textSize="@dimen/main_cardview_text_size"
                 android:text="@string/view_assessments_card"/>
+            <Space
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="match_parent"/>
+            <LinearLayout
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="@dimen/main_status_margin"
+                android:layout_marginEnd="20dp"
+                android:layout_gravity="center|end"
+                android:background="@drawable/rounded_corners"
+                android:backgroundTint="@color/colorAccent"
+                android:gravity="center"
+                android:minWidth="@dimen/main_status_circle"
+                android:minHeight="@dimen/main_status_circle">
+
+                <TextView
+                    android:id="@+id/status_assessments_count"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:textSize="@dimen/main_status_text_size"
+                    android:padding="6dp" />
+            </LinearLayout>
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

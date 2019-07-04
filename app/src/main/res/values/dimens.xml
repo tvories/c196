@@ -16,4 +16,6 @@
     <dimen name="main_status_space">40dp</dimen>
     <dimen name="main_status_label_width">150dp</dimen>
     <dimen name="main_status_circle">8dp</dimen>
+    <dimen name="main_status_margin">20dp</dimen>
+    <dimen name="main_status_text_size">34sp</dimen>
 </resources>
