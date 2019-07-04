@@ -11,13 +11,12 @@ import androidx.lifecycle.LiveData;
 
 import com.taylorvories.c196.models.Assessment;
 import com.taylorvories.c196.models.Course;
+import com.taylorvories.c196.models.Mentor;
 import com.taylorvories.c196.models.Term;
 import com.taylorvories.c196.utilities.SampleData;
 
 public class AppRepository {
     private static AppRepository ourInstance;
-    private TermDao termDao;
-    private CourseDao courseDao;
     public LiveData<List<Term>> mTerms;
 
     private AppDatabase mDb;
@@ -33,14 +32,13 @@ public class AppRepository {
     private AppRepository(Context context) {
         mDb = AppDatabase.getInstance(context);
         mTerms = getAllTerms();
-        termDao = mDb.termDao();
-        courseDao = mDb.courseDao();
     }
 
     public void addSampleData() {
         executor.execute(() -> mDb.termDao().insertAll(SampleData.getTerms()));
         executor.execute(() -> mDb.courseDao().insertAll(SampleData.getCourses()));
         executor.execute(() -> mDb.assessmentDao().insertAll(SampleData.getAssessments()));
+        executor.execute(() -> mDb.mentorDao().insertAll(SampleData.getMentors()));
     }
 
     public LiveData<List<Term>> getAllTerms() {
@@ -51,6 +49,7 @@ public class AppRepository {
         executor.execute(() -> mDb.termDao().deleteAll());
         executor.execute(() -> mDb.courseDao().deleteAll());
         executor.execute(() -> mDb.assessmentDao().deleteAll());
+        executor.execute(() -> mDb.mentorDao().deleteAll());
     }
 
     public Term getTermById(int termId) {
@@ -97,5 +96,22 @@ public class AppRepository {
 
     public void deleteAssessment(final Assessment assessment) {
         executor.execute(() -> mDb.assessmentDao().deleteAssessment(assessment));
+    }
+
+    // Mentor methods
+    public LiveData<List<Mentor>> getAllMentors() {
+        return mDb.mentorDao().getAll();
+    }
+
+    public Mentor getMentorById(int mentorId) {
+        return mDb.mentorDao().getMentorById(mentorId);
+    }
+
+    public void insertMentor(final Mentor mentor) {
+        executor.execute(() -> mDb.mentorDao().insertMentor(mentor));
+    }
+
+    public void deleteMentor(final Mentor mentor) {
+        executor.execute(() -> mDb.mentorDao().deleteMentor(mentor));
     }
 }

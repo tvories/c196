@@ -4,6 +4,7 @@ import com.taylorvories.c196.models.Assessment;
 import com.taylorvories.c196.models.AssessmentType;
 import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.CourseStatus;
+import com.taylorvories.c196.models.Mentor;
 import com.taylorvories.c196.models.Term;
 
 import java.util.ArrayList;
@@ -46,6 +47,14 @@ public class SampleData {
         assessments.add(new Assessment(SAMPLE_ASSESSMENT_TITLE + " 3", getDate(-1000), AssessmentType.OA, 10001));
         assessments.add(new Assessment(SAMPLE_ASSESSMENT_TITLE + " 4", getDate(-10000), AssessmentType.OA, 10002));
         return assessments;
+    }
+
+    public static List<Mentor> getMentors() {
+        List<Mentor> mentors = new ArrayList<>();
+        mentors.add(new Mentor("Taylor Vories", "tvories@gmail.com", "970-123-2121", 10000));
+        mentors.add(new Mentor("Homer Simpson", "doh@gmail.com", "555-223-1526", 10001));
+        mentors.add(new Mentor("Jimbo Jones", "cooldude420@gmail.com", "555-223-4124", 10002));
+        return mentors;
     }
 
 }

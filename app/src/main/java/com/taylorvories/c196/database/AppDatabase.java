@@ -9,9 +9,10 @@ import androidx.room.TypeConverters;
 
 import com.taylorvories.c196.models.Assessment;
 import com.taylorvories.c196.models.Course;
+import com.taylorvories.c196.models.Mentor;
 import com.taylorvories.c196.models.Term;
 
-@Database(entities = {Term.class, Course.class, Assessment.class}, version = 3)
+@Database(entities = {Term.class, Course.class, Assessment.class, Mentor.class}, version = 4)
 @TypeConverters({DateConverter.class, CourseStatusConverter.class, AssessmentTypeConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "AppDatabase.db";
@@ -21,6 +22,7 @@ public abstract class AppDatabase extends RoomDatabase {
     public abstract TermDao termDao();
     public abstract CourseDao courseDao();
     public abstract AssessmentDao assessmentDao();
+    public abstract MentorDao mentorDao();
 
     public static AppDatabase getInstance(Context context) {
         if (instance == null) {
