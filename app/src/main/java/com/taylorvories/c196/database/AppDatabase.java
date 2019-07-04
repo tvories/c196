@@ -7,11 +7,12 @@ import androidx.room.Room;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.taylorvories.c196.models.Assessment;
 import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.Term;
 
-@Database(entities = {Term.class, Course.class}, version = 2)
-@TypeConverters({DateConverter.class, CourseStatusConverter.class})
+@Database(entities = {Term.class, Course.class, Assessment.class}, version = 3)
+@TypeConverters({DateConverter.class, CourseStatusConverter.class, AssessmentTypeConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "AppDatabase.db";
     private static volatile AppDatabase instance;
@@ -19,6 +20,7 @@ public abstract class AppDatabase extends RoomDatabase {
 
     public abstract TermDao termDao();
     public abstract CourseDao courseDao();
+    public abstract AssessmentDao assessmentDao();
 
     public static AppDatabase getInstance(Context context) {
         if (instance == null) {

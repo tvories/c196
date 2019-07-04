@@ -9,6 +9,8 @@ import java.util.concurrent.Executors;
 
 import androidx.lifecycle.LiveData;
 
+import com.taylorvories.c196.models.Assessment;
+import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.Term;
 import com.taylorvories.c196.utilities.SampleData;
 
@@ -38,6 +40,7 @@ public class AppRepository {
     public void addSampleData() {
         executor.execute(() -> mDb.termDao().insertAll(SampleData.getTerms()));
         executor.execute(() -> mDb.courseDao().insertAll(SampleData.getCourses()));
+        executor.execute(() -> mDb.assessmentDao().insertAll(SampleData.getAssessments()));
     }
 
     public LiveData<List<Term>> getAllTerms() {
@@ -47,6 +50,7 @@ public class AppRepository {
     public void deleteAllData() {
         executor.execute(() -> mDb.termDao().deleteAll());
         executor.execute(() -> mDb.courseDao().deleteAll());
+        executor.execute(() -> mDb.assessmentDao().deleteAll());
     }
 
     public Term getTermById(int termId) {
@@ -59,5 +63,39 @@ public class AppRepository {
 
     public void deleteTerm(final Term term) {
         executor.execute(() -> mDb.termDao().deleteTerm(term));
+    }
+
+    // Course methods
+    public LiveData<List<Course>> getAllCourses() {
+        return mDb.courseDao().getAll();
+    }
+
+    public Course getCourseById(int courseId) {
+        return mDb.courseDao().getCourseById(courseId);
+    }
+
+    public void insertCourse(final Course course) {
+        executor.execute(() -> mDb.courseDao().insertCourse(course));
+    }
+
+    public void deleteCourse(final Course course) {
+        executor.execute(() -> mDb.courseDao().deleteCourse(course));
+    }
+
+    // Assessment methods
+    public LiveData<List<Assessment>> getAllAssessments() {
+        return mDb.assessmentDao().getAll();
+    }
+
+    public Assessment getAssessmentById(int assessmentId) {
+        return mDb.assessmentDao().getAssessmentById(assessmentId);
+    }
+
+    public void insertAssessment(final Assessment assessment) {
+        executor.execute(() -> mDb.assessmentDao().insertAssessment(assessment));
+    }
+
+    public void deleteAssessment(final Assessment assessment) {
+        executor.execute(() -> mDb.assessmentDao().deleteAssessment(assessment));
     }
 }

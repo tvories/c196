@@ -28,7 +28,7 @@ public interface CourseDao {
     @Query("SELECT * FROM courses ORDER BY startDate DESC")
     LiveData<List<Course>> getAll();
 
-    @Query("SELECT * FROM courses WHERE termId=:termId")
+    @Query("SELECT * FROM courses WHERE termId = :termId")
     LiveData<List<Course>> getCourseByTerm(final int termId);
 
     @Query("DELETE FROM courses")

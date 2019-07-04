@@ -27,6 +27,16 @@ public class Course {
 
     }
 
+    @Ignore
+    public Course(int id, String title, Date startDate, Date anticipatedEndDate, CourseStatus courseStatus, int termId) {
+        this.id = id;
+        this.title = title;
+        this.startDate = startDate;
+        this.anticipatedEndDate = anticipatedEndDate;
+        this.courseStatus = courseStatus;
+        this.termId = termId;
+    }
+
     public Course(String title, Date startDate, Date anticipatedEndDate, CourseStatus courseStatus, int termId) {
         this.title = title;
         this.startDate = startDate;

@@ -13,7 +13,7 @@ public class CourseStatusConverter {
         if(courseStatus == null) {
             return null;
         }
-        return courseStatus.toString();
+        return courseStatus.name();
     }
 
     @TypeConverter

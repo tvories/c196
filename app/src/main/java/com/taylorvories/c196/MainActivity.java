@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.google.android.material.navigation.NavigationView;
+import com.taylorvories.c196.models.Assessment;
+import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.Term;
 import com.taylorvories.c196.ui.TermAdapter;
 import com.taylorvories.c196.viewmodel.MainViewModel;
@@ -32,6 +34,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     NavigationView mNavigationView;
 
     private List<Term> termData = new ArrayList<>();
+    private List<Course> courseData = new ArrayList<>();
+    private List<Assessment> assessmentData = new ArrayList<>();
     private TermAdapter mAdapter;
     private MainViewModel mViewModel;
     private TextView termStatus, courseStatus, assessmentStatus;
@@ -68,6 +72,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     private void initViewModel() {
+        // Term observer
         final Observer<List<Term>> termObserver =
             termEntities -> {
                 termData.clear();
@@ -80,8 +85,27 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                     mAdapter.notifyDataSetChanged();
                 }
             };
+        // Course observer
+        final Observer<List<Course>> courseObserver =
+            courseEntities -> {
+                courseData.clear();
+                courseData.addAll(courseEntities);
+                // Updates course status number
+                setStatusNumbers(courseEntities.size(), courseStatus);
+            };
+
+        // Assessment observer
+        final Observer<List<Assessment>> assessmentObserver =
+            assessmentEntities -> {
+                assessmentData.clear();
+                assessmentData.addAll(assessmentEntities);
+                // Updates assessment status number
+                setStatusNumbers(assessmentEntities.size(), assessmentStatus);
+            };
         mViewModel = ViewModelProviders.of(this).get(MainViewModel.class);
         mViewModel.mTerms.observe(this, termObserver);
+        mViewModel.mCourses.observe(this, courseObserver);
+        mViewModel.mAssessments.observe(this, assessmentObserver);
     }
 
     @Override
