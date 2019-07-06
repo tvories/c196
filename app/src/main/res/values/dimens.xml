@@ -20,4 +20,5 @@
     <dimen name="main_status_text_size">34sp</dimen>
     <dimen name="edit_margin">10dp</dimen>
     <dimen name="term_edit_btn_width">125dp</dimen>
+    <dimen name="edit_icon_size">35dp</dimen>
 </resources>

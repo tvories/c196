@@ -31,15 +31,18 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toStartOf="@+id/term_edit_start_btn"/>
 
-    <Button
-        android:layout_width="@dimen/term_edit_btn_width"
+    <ImageButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:backgroundTint="@color/colorPrimaryLight"
+        android:minWidth="@dimen/edit_icon_size"
+        android:minHeight="@dimen/edit_icon_size"
         android:id="@+id/term_edit_start_btn"
+        android:background="@drawable/ic_term_icon"
+        android:scaleType="fitXY"
         android:layout_margin="@dimen/text_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/term_edit_title"
-        android:text="@string/term_edit_btn_start"/>
+        android:contentDescription="@string/term_edit_btn_start"/>
 
     <EditText
         android:layout_width="0dp"
@@ -52,15 +55,18 @@
         app:layout_constraintEnd_toStartOf="@+id/term_edit_end_btn"
         android:inputType="date" />
 
-    <Button
-        android:layout_width="@dimen/term_edit_btn_width"
+    <ImageButton
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:minWidth="@dimen/edit_icon_size"
+        android:minHeight="@dimen/edit_icon_size"
+        android:scaleType="fitXY"
         android:id="@+id/term_edit_end_btn"
+        android:background="@drawable/ic_term_icon"
         android:layout_margin="@dimen/text_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/term_edit_start_btn"
-        android:text="@string/term_edit_btn_end"
-        android:backgroundTint="@color/colorPrimaryLight"/>
+        android:contentDescription="@string/term_edit_btn_end"/>
 
     <Button
         android:layout_width="@dimen/term_edit_btn_width"

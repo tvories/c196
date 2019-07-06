@@ -1,24 +1,33 @@
 package com.taylorvories.c196;
 
+import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.taylorvories.c196.utilities.TextFormatting;
 import com.taylorvories.c196.viewmodel.EditorViewModel;
 
 import java.text.ParseException;
+import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.taylorvories.c196.utilities.Constants.EDITING_KEY;
 import static com.taylorvories.c196.utilities.Constants.TERM_ID_KEY;
@@ -32,6 +41,12 @@ public class TermEditActivity extends AppCompatActivity {
 
     @BindView(R.id.term_edit_end)
     TextView tvTermEndDate;
+
+    @BindView(R.id.term_edit_start_btn)
+    ImageButton btnStartDate;
+
+    @BindView(R.id.term_edit_end_btn)
+    ImageButton btnEndDate;
 
     private EditorViewModel mViewModel;
     private boolean mNewTerm, mEditing;
@@ -120,4 +135,34 @@ public class TermEditActivity extends AppCompatActivity {
         outState.putBoolean(EDITING_KEY, true);
         super.onSaveInstanceState(outState);
     }
+
+    /**
+     *
+     */
+    @OnClick(R.id.term_edit_start_btn)
+    public void termStartDatePicker() {
+        final Calendar myCalendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            tvTermStartDate.setText(TextFormatting.fullDateFormat.format(myCalendar.getTime()));
+        };
+        new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
+    @OnClick(R.id.term_edit_end_btn)
+    public void termEndDatePicker() {
+        final Calendar myCalendar = Calendar.getInstance();
+        DatePickerDialog.OnDateSetListener date = (view, year, monthOfYear, dayOfMonth) -> {
+            myCalendar.set(Calendar.YEAR, year);
+            myCalendar.set(Calendar.MONTH, monthOfYear);
+            myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+            tvTermEndDate.setText(TextFormatting.fullDateFormat.format(myCalendar.getTime()));
+        };
+        new DatePickerDialog(this, date, myCalendar.get(Calendar.YEAR), myCalendar.get(Calendar.MONTH), myCalendar.get(Calendar.DAY_OF_MONTH)).show();
+    }
+
 }
