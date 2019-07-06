@@ -56,7 +56,7 @@ public class TermEditActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_term_edit);
-        Toolbar toolbar = findViewById(R.id.toolbar_layout);
+        Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_check);
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
