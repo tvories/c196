@@ -1,6 +1,7 @@
 package com.taylorvories.c196.ui;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,17 +10,20 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.taylorvories.c196.R;
+import com.taylorvories.c196.TermEditActivity;
 import com.taylorvories.c196.models.Term;
+import com.taylorvories.c196.utilities.TextFormatting;
 
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.taylorvories.c196.utilities.Constants.TERM_ID_KEY;
 
 public class TermAdapter extends RecyclerView.Adapter<TermAdapter.ViewHolder> {
 
@@ -43,15 +47,16 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull TermAdapter.ViewHolder holder, int position) {
         final Term term = mTerms.get(position);
         holder.tvTitle.setText(term.getTitle());
-        holder.tvDates.setText("Dates here.");
+        String startAndEnd = TextFormatting.cardDateFormat.format(term.getStartDate()) + " to " + TextFormatting.cardDateFormat.format(term.getEndDate());
+        holder.tvDates.setText(startAndEnd);
 
         holder.termFab.setOnClickListener(v -> {
-            // Intent intent = new Intent(mContext, EditorActivity.class);
-            // intent.putExtra(TERM_ID_KEY, term.getId());
-            // mContext.startActivity(intent);
-            int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(mContext, "Edit me!", duration);
-            toast.show();
+             Intent intent = new Intent(mContext, TermEditActivity.class);
+             intent.putExtra(TERM_ID_KEY, term.getId());
+             mContext.startActivity(intent);
+//            int duration = Toast.LENGTH_SHORT;
+//            Toast toast = Toast.makeText(mContext, "Edit me!", duration);
+//            toast.show();
         });
 
         holder.termImageBtn.setOnClickListener(v -> {

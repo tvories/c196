@@ -1,6 +1,7 @@
 package com.taylorvories.c196;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -8,11 +9,13 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.taylorvories.c196.models.Term;
+import com.taylorvories.c196.utilities.TextFormatting;
 import com.taylorvories.c196.viewmodel.EditorViewModel;
+
+import java.text.ParseException;
+import java.util.Date;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -20,9 +23,15 @@ import butterknife.ButterKnife;
 import static com.taylorvories.c196.utilities.Constants.EDITING_KEY;
 import static com.taylorvories.c196.utilities.Constants.TERM_ID_KEY;
 
-public class EditorActivity extends AppCompatActivity {
-    @BindView(R.id.term_title)
-    TextView mTextView;
+public class TermEditActivity extends AppCompatActivity {
+    @BindView(R.id.term_edit_title)
+    TextView tvTermTitle;
+
+    @BindView(R.id.term_edit_start)
+    TextView tvTermStartDate;
+
+    @BindView(R.id.term_edit_end)
+    TextView tvTermEndDate;
 
     private EditorViewModel mViewModel;
     private boolean mNewTerm, mEditing;
@@ -30,15 +39,16 @@ public class EditorActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_editor);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+
+        setContentView(R.layout.activity_term_edit);
+        Toolbar toolbar = findViewById(R.id.toolbar_layout);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_check);
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_check);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ButterKnife.bind(this);
 
-        if (savedInstanceState != null) {
+        if(savedInstanceState != null) {
             mEditing = savedInstanceState.getBoolean(EDITING_KEY);
         }
 
@@ -50,7 +60,9 @@ public class EditorActivity extends AppCompatActivity {
 
         mViewModel.mLiveTerm.observe(this, term -> {
             if(term != null && !mEditing) {
-                mTextView.setText(term.getTitle());
+                tvTermTitle.setText(term.getTitle());
+                tvTermStartDate.setText(TextFormatting.fullDateFormat.format(term.getStartDate()));
+                tvTermEndDate.setText(TextFormatting.fullDateFormat.format(term.getEndDate()));
             }
         });
 
@@ -79,7 +91,7 @@ public class EditorActivity extends AppCompatActivity {
         if(item.getItemId() == android.R.id.home) {
             saveAndReturn();
             return true;
-        } else if(item.getItemId() == R.id.action_delete) {
+        } else if (item.getItemId() == R.id.action_delete) {
             mViewModel.deleteTerm();
             finish();
         }
@@ -91,8 +103,15 @@ public class EditorActivity extends AppCompatActivity {
         saveAndReturn();
     }
 
-    private void saveAndReturn() {
-        // mViewModel.saveTerm(mTextView.getText().toString());
+    public void saveAndReturn() {
+        try {
+            Date startDate = TextFormatting.cardDateFormat.parse(tvTermStartDate.toString());
+            Date endDate = TextFormatting.cardDateFormat.parse(tvTermEndDate.toString());
+            mViewModel.saveTerm(tvTermTitle.toString(), startDate, endDate);
+
+        } catch (ParseException e) {
+            Log.v("Exception", e.getLocalizedMessage());
+        }
         finish();
     }
 

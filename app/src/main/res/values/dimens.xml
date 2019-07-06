@@ -18,4 +18,6 @@
     <dimen name="main_status_circle">8dp</dimen>
     <dimen name="main_status_margin">20dp</dimen>
     <dimen name="main_status_text_size">34sp</dimen>
+    <dimen name="edit_margin">10dp</dimen>
+    <dimen name="term_edit_btn_width">125dp</dimen>
 </resources>

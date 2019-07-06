@@ -33,6 +33,7 @@
             android:parentActivityName=".MainActivity"
             android:theme="@style/Theme.MaterialComponents.NoActionBar">
         </activity>
+        <activity android:name=".TermEditActivity" />
 
     </application>
 

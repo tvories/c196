@@ -1,6 +1,7 @@
 package com.taylorvories.c196;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,14 +35,14 @@ public class TermActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab)
     void fabClickHandler() {
-        //Intent intent = new Intent(this, TermEditActivity.class);
-        //startActivity(intent);
-        Context context = getApplicationContext();
+        Intent intent = new Intent(this, TermEditActivity.class);
+        startActivity(intent);
+        /*Context context = getApplicationContext();
         CharSequence text = "Add Term Pressed!";
         int duration = Toast.LENGTH_SHORT;
 
         Toast toast = Toast.makeText(context, text, duration);
-        toast.show();
+        toast.show();*/
     }
 
     private List<Term> termData = new ArrayList<>();

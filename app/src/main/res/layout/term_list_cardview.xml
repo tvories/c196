@@ -4,59 +4,60 @@
     android:orientation="vertical"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="16dp">
+    android:padding="5dp">
 
-    <androidx.cardview.widget.CardView
+    <com.google.android.material.card.MaterialCardView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/term_cardview"
-        app:cardCornerRadius="@dimen/main_cardview_corner_rad"/>
+        app:cardCornerRadius="@dimen/main_cardview_corner_rad">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="10dp">
-
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/card_term_fab"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAccent"
-            app:borderWidth="0dp"
-            app:fabSize="mini"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginEnd="16dp"
-            app:srcCompat="@drawable/ic_edit" />
-
-        <ImageButton
-            android:layout_height="match_parent"
-            android:layout_width="match_parent"
-            android:id="@+id/btn_term_details"
-            android:background="@color/transparent"
-            android:layout_toEndOf="@+id/card_term_fab"
-            android:contentDescription="@string/term_details"
-            android:onClick="showTermDetails" />
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_toEndOf="@+id/card_term_fab">
+            android:padding="10dp">
 
-            <TextView
+            <com.google.android.material.floatingactionbutton.FloatingActionButton
+                android:id="@+id/card_term_fab"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/card_term_title"
-                android:text="THIS IS TITLE"
-                android:textSize="30sp" />
+                android:backgroundTint="@color/colorAccent"
+                app:borderWidth="0dp"
+                app:fabSize="mini"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginEnd="16dp"
+                app:srcCompat="@drawable/ic_edit" />
 
-            <TextView
-                android:layout_width="wrap_content"
+            <ImageButton
+                android:layout_height="match_parent"
+                android:layout_width="match_parent"
+                android:id="@+id/btn_term_details"
+                android:background="@color/transparent"
+                android:layout_toEndOf="@+id/card_term_fab"
+                android:contentDescription="@string/term_details"
+                android:onClick="showTermDetails" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="THIS IS DATE"
-                android:id="@+id/card_term_dates" />
-        </LinearLayout>
+                android:orientation="vertical"
+                android:layout_toEndOf="@+id/card_term_fab">
 
-    </RelativeLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/card_term_title"
+                    android:text="THIS IS TITLE"
+                    android:textSize="30sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="THIS IS DATE"
+                    android:id="@+id/card_term_dates" />
+            </LinearLayout>
+
+        </RelativeLayout>
+    </com.google.android.material.card.MaterialCardView>
 </LinearLayout>

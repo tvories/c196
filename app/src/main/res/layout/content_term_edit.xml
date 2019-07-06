@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".TermEditActivity"
+    tools:showIn="@layout/activity_term_edit">
+
+    <EditText
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/term_edit_title"
+        android:layout_margin="@dimen/text_margin"
+        android:hint="@string/term_edit_title_hint"
+        android:autofillHints="@string/term_edit_title_hint"
+        android:inputType="text"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/term_edit_start"
+        android:hint="@string/term_edit_start_hint"
+        android:inputType="date"
+        app:layout_constraintTop_toBottomOf="@+id/term_edit_title"
+        android:layout_margin="@dimen/text_margin"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/term_edit_start_btn"/>
+
+    <Button
+        android:layout_width="@dimen/term_edit_btn_width"
+        android:layout_height="wrap_content"
+        android:backgroundTint="@color/colorPrimaryLight"
+        android:id="@+id/term_edit_start_btn"
+        android:layout_margin="@dimen/text_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/term_edit_title"
+        android:text="@string/term_edit_btn_start"/>
+
+    <EditText
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:id="@+id/term_edit_end"
+        android:hint="@string/term_edit_end_hint"
+        android:layout_margin="@dimen/text_margin"
+        app:layout_constraintTop_toBottomOf="@+id/term_edit_start"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/term_edit_end_btn"
+        android:inputType="date" />
+
+    <Button
+        android:layout_width="@dimen/term_edit_btn_width"
+        android:layout_height="wrap_content"
+        android:id="@+id/term_edit_end_btn"
+        android:layout_margin="@dimen/text_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/term_edit_start_btn"
+        android:text="@string/term_edit_btn_end"
+        android:backgroundTint="@color/colorPrimaryLight"/>
+
+    <Button
+        android:layout_width="@dimen/term_edit_btn_width"
+        android:layout_height="wrap_content"
+        android:id="@+id/term_edit_btn_save"
+        android:layout_margin="@dimen/text_margin"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/term_edit_end_btn"
+        android:text="@string/term_edit_btn_save"
+        android:backgroundTint="@color/colorAccent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

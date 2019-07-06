@@ -31,16 +31,18 @@ public class EditorViewModel extends AndroidViewModel {
         });
     }
 
-    public void saveTerm(String termTitle) {
+    public void saveTerm(String termTitle, Date startDate, Date endDate) {
         Term term = mLiveTerm.getValue();
 
         if (term == null) {
             if (TextUtils.isEmpty(termTitle.trim())) {
                 return;
             }
-            term = new Term(termTitle.trim(), new Date(), new Date());
+            term = new Term(termTitle.trim(), startDate, endDate);
         } else {
             term.setTitle(termTitle.trim());
+            term.setStartDate(startDate);
+            term.setEndDate(endDate);
         }
         mRepository.insertTerm(term);
     }
