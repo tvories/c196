@@ -118,6 +118,11 @@ public class TermEditActivity extends AppCompatActivity {
         saveAndReturn();
     }
 
+    @OnClick(R.id.term_edit_btn_save)
+    public void saveBtnPressed() {
+        saveAndReturn();
+    }
+
     public void saveAndReturn() {
         try {
             Date startDate = TextFormatting.cardDateFormat.parse(tvTermStartDate.toString());
