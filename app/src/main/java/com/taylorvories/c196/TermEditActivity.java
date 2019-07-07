@@ -10,6 +10,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
@@ -24,6 +25,7 @@ import com.taylorvories.c196.viewmodel.EditorViewModel;
 import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,13 +36,13 @@ import static com.taylorvories.c196.utilities.Constants.TERM_ID_KEY;
 
 public class TermEditActivity extends AppCompatActivity {
     @BindView(R.id.term_edit_title)
-    TextView tvTermTitle;
+    EditText tvTermTitle;
 
     @BindView(R.id.term_edit_start)
-    TextView tvTermStartDate;
+    EditText tvTermStartDate;
 
     @BindView(R.id.term_edit_end)
-    TextView tvTermEndDate;
+    EditText tvTermEndDate;
 
     @BindView(R.id.term_edit_start_btn)
     ImageButton btnStartDate;
@@ -58,8 +60,8 @@ public class TermEditActivity extends AppCompatActivity {
         setContentView(R.layout.activity_term_edit);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        //getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_check);
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        Objects.requireNonNull(getSupportActionBar()).setHomeAsUpIndicator(R.drawable.ic_check);
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         ButterKnife.bind(this);
 
@@ -125,9 +127,10 @@ public class TermEditActivity extends AppCompatActivity {
 
     public void saveAndReturn() {
         try {
-            Date startDate = TextFormatting.cardDateFormat.parse(tvTermStartDate.toString());
-            Date endDate = TextFormatting.cardDateFormat.parse(tvTermEndDate.toString());
-            mViewModel.saveTerm(tvTermTitle.toString(), startDate, endDate);
+            Date startDate = TextFormatting.fullDateFormat.parse(tvTermStartDate.getText().toString());
+            Date endDate = TextFormatting.fullDateFormat.parse(tvTermEndDate.getText().toString());
+            mViewModel.saveTerm(tvTermTitle.getText().toString(), startDate, endDate);
+            Log.v("Saved term",tvTermTitle.toString());
 
         } catch (ParseException e) {
             Log.v("Exception", e.getLocalizedMessage());

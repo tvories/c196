@@ -73,15 +73,5 @@
             app:layout_constraintTop_toBottomOf="@+id/term_edit_start_btn"
             android:contentDescription="@string/term_edit_btn_end" />
 
-        <Button
-            android:layout_width="@dimen/term_edit_btn_width"
-            android:layout_height="wrap_content"
-            android:id="@+id/term_edit_btn_save"
-            android:layout_margin="@dimen/text_margin"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/term_edit_end_btn"
-            android:text="@string/term_edit_btn_save"
-            android:backgroundTint="@color/colorAccent" />
-
     </androidx.constraintlayout.widget.ConstraintLayout>
 </androidx.core.widget.NestedScrollView>
