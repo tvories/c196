@@ -35,8 +35,7 @@
                 android:id="@+id/btn_term_details"
                 android:background="@color/transparent"
                 android:layout_toEndOf="@+id/card_term_fab"
-                android:contentDescription="@string/term_details"
-                android:onClick="showTermDetails" />
+                android:contentDescription="@string/term_details" />
 
             <LinearLayout
                 android:layout_width="match_parent"

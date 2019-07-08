@@ -88,9 +88,4 @@ public class TermActivity extends AppCompatActivity {
         mTermViewModel = ViewModelProviders.of(this).get(TermViewModel.class);
         mTermViewModel.mTerms.observe(this, termObserver);
     }
-
-    public void showTermDetails(View view) {
-        //TODO: Write this
-        Toast.makeText(this, "Details pressed", Toast.LENGTH_SHORT).show();
-    }
 }

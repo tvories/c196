@@ -14,12 +14,16 @@ import com.taylorvories.c196.viewmodel.EditorViewModel;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.taylorvories.c196.utilities.Constants.TERM_ID_KEY;
+
 public class TermDetailsActivity extends AppCompatActivity {
     @BindView(R.id.term_detail_start)
     TextView tvTermStartDate;
 
     @BindView(R.id.term_detail_end)
     TextView tvTermEndDate;
+
+    Toolbar toolbar;
 
     private EditorViewModel mViewModel;
 
@@ -28,7 +32,7 @@ public class TermDetailsActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_term_details);
-        Toolbar toolbar = findViewById(R.id.toolbar);
+        toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
         ButterKnife.bind(this);
@@ -42,7 +46,13 @@ public class TermDetailsActivity extends AppCompatActivity {
         mViewModel.mLiveTerm.observe(this, term -> {
             tvTermStartDate.setText(TextFormatting.fullDateFormat.format(term.getStartDate()));
             tvTermEndDate.setText(TextFormatting.fullDateFormat.format(term.getEndDate()));
-            setTitle(term.getTitle());
+            toolbar.setTitle(term.getTitle());
         });
+
+        Bundle extras = getIntent().getExtras();
+        if(extras != null) {
+            int termId = extras.getInt(TERM_ID_KEY);
+            mViewModel.loadData(termId);
+        }
     }
 }

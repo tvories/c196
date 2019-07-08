@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.taylorvories.c196.R;
+import com.taylorvories.c196.TermDetailsActivity;
 import com.taylorvories.c196.TermEditActivity;
 import com.taylorvories.c196.models.Term;
 import com.taylorvories.c196.utilities.TextFormatting;
@@ -60,9 +61,13 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.ViewHolder> {
         });
 
         holder.termImageBtn.setOnClickListener(v -> {
-            int duration = Toast.LENGTH_SHORT;
+            Intent intent = new Intent(mContext, TermDetailsActivity.class);
+            intent.putExtra(TERM_ID_KEY, term.getId());
+            mContext.startActivity(intent);
+
+            /*int duration = Toast.LENGTH_SHORT;
             Toast toast = Toast.makeText(mContext, "Details pressed!", duration);
-            toast.show();
+            toast.show();*/
         });
     }
 

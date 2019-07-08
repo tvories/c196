@@ -34,6 +34,7 @@
             android:theme="@style/Theme.MaterialComponents.NoActionBar">
         </activity>
         <activity android:name=".TermEditActivity" />
+        <activity android:name=".TermDetailsActivity" />
 
     </application>
 
