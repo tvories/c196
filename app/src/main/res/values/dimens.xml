@@ -21,4 +21,6 @@
     <dimen name="edit_margin">10dp</dimen>
     <dimen name="term_edit_btn_width">125dp</dimen>
     <dimen name="edit_icon_size">35dp</dimen>
+    <dimen name="detail_text_size">28sp</dimen>
+    <dimen name="detail_label_width">180dp</dimen>
 </resources>

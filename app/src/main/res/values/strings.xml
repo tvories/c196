@@ -33,4 +33,7 @@
     <string name="term_edit_end_hint">End Date (MM/DD/YYY)</string>
     <string name="term_edit_btn_end">Select Date</string>
     <string name="term_edit_btn_save">Save</string>
+    <string name="term_detail_start_label">Start Date</string>
+    <string name="term_detail_end_label">End Date</string>
+    <string name="term_detail_courses_label">Courses</string>
 </resources>
