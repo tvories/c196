@@ -66,10 +66,10 @@ public class TermActivity extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mTermRecyclerView.setLayoutManager(layoutManager);
 
-        DividerItemDecoration divider = new DividerItemDecoration(
+        /*DividerItemDecoration divider = new DividerItemDecoration(
                 mTermRecyclerView.getContext(), layoutManager.getOrientation()
         );
-        mTermRecyclerView.addItemDecoration(divider);
+        mTermRecyclerView.addItemDecoration(divider);*/
     }
 
     private void initViewModel() {
