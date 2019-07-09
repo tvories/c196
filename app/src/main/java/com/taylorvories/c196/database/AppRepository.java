@@ -73,6 +73,10 @@ public class AppRepository {
         return mDb.courseDao().getCourseById(courseId);
     }
 
+    public LiveData<List<Course>> getCourseByTerm(final int termId) {
+        return mDb.courseDao().getCourseByTerm(termId);
+    }
+
     public void insertCourse(final Course course) {
         executor.execute(() -> mDb.courseDao().insertCourse(course));
     }
