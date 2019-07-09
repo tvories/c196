@@ -36,4 +36,5 @@
     <string name="term_detail_start_label">Start Date</string>
     <string name="term_detail_end_label">End Date</string>
     <string name="term_detail_courses_label">Courses</string>
+    <string name="course_details">Course Details</string>
 </resources>

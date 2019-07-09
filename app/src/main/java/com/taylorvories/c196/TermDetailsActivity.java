@@ -21,6 +21,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.Term;
+import com.taylorvories.c196.ui.RecyclerContext;
 import com.taylorvories.c196.ui.TermAdapter;
 import com.taylorvories.c196.utilities.TextFormatting;
 import com.taylorvories.c196.viewmodel.EditorViewModel;
@@ -95,7 +96,7 @@ public class TermDetailsActivity extends AppCompatActivity {
                     termData.addAll(termEntities);
 
                     if(mTermAdapter == null) {
-                        mTermAdapter = new TermAdapter(termData, TermDetailsActivity.this);
+                        mTermAdapter = new TermAdapter(termData, TermDetailsActivity.this, RecyclerContext.CHILD);
                         mCourseRecyclerView.setAdapter(mTermAdapter);
                     } else {
                         mTermAdapter.notifyDataSetChanged();

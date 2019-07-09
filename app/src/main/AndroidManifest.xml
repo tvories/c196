@@ -35,6 +35,7 @@
         </activity>
         <activity android:name=".TermEditActivity" />
         <activity android:name=".TermDetailsActivity" />
+        <activity android:name=".CourseActivity" />
 
     </application>
 

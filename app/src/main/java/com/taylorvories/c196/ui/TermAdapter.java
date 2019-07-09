@@ -10,6 +10,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -30,10 +31,12 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.ViewHolder> {
 
     private final List<Term> mTerms;
     private final Context mContext;
+    private final RecyclerContext rContext;
 
-    public TermAdapter(List<Term> mTerms, Context mContext) {
+    public TermAdapter(List<Term> mTerms, Context mContext, RecyclerContext rContext) {
         this.mTerms = mTerms;
         this.mContext = mContext;
+        this.rContext = rContext;
     }
 
     @NonNull
@@ -51,24 +54,23 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.ViewHolder> {
         String startAndEnd = TextFormatting.cardDateFormat.format(term.getStartDate()) + " to " + TextFormatting.cardDateFormat.format(term.getEndDate());
         holder.tvDates.setText(startAndEnd);
 
-        holder.termFab.setOnClickListener(v -> {
-             Intent intent = new Intent(mContext, TermEditActivity.class);
-             intent.putExtra(TERM_ID_KEY, term.getId());
-             mContext.startActivity(intent);
-//            int duration = Toast.LENGTH_SHORT;
-//            Toast toast = Toast.makeText(mContext, "Edit me!", duration);
-//            toast.show();
-        });
+        switch(rContext) {
+            case PARENT:
+                holder.termFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_edit));
+                holder.termImageBtn.setOnClickListener(v -> {
+                    Intent intent = new Intent(mContext, TermDetailsActivity.class);
+                    intent.putExtra(TERM_ID_KEY, term.getId());
+                    mContext.startActivity(intent);
+                });
 
-        holder.termImageBtn.setOnClickListener(v -> {
-            Intent intent = new Intent(mContext, TermDetailsActivity.class);
-            intent.putExtra(TERM_ID_KEY, term.getId());
-            mContext.startActivity(intent);
-
-            /*int duration = Toast.LENGTH_SHORT;
-            Toast toast = Toast.makeText(mContext, "Details pressed!", duration);
-            toast.show();*/
-        });
+                holder.termFab.setOnClickListener(v -> {
+                    Intent intent = new Intent(mContext, TermEditActivity.class);
+                    intent.putExtra(TERM_ID_KEY, term.getId());
+                    mContext.startActivity(intent);
+                });
+            case CHILD:
+                holder.termFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_delete));
+        }
     }
 
     @Override

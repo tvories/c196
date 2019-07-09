@@ -19,6 +19,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.taylorvories.c196.models.Term;
+import com.taylorvories.c196.ui.RecyclerContext;
 import com.taylorvories.c196.ui.TermAdapter;
 import com.taylorvories.c196.viewmodel.TermViewModel;
 
@@ -74,7 +75,7 @@ public class TermActivity extends AppCompatActivity {
                 termData.addAll(termEntities);
 
                 if(mTermAdapter == null) {
-                    mTermAdapter = new TermAdapter(termData, TermActivity.this);
+                    mTermAdapter = new TermAdapter(termData, TermActivity.this, RecyclerContext.PARENT);
                     mTermRecyclerView.setAdapter(mTermAdapter);
                 } else {
                     mTermAdapter.notifyDataSetChanged();

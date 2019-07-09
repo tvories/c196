@@ -8,6 +8,7 @@ import com.taylorvories.c196.models.Assessment;
 import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.Mentor;
 import com.taylorvories.c196.models.Term;
+import com.taylorvories.c196.ui.RecyclerContext;
 import com.taylorvories.c196.ui.TermAdapter;
 import com.taylorvories.c196.viewmodel.MainViewModel;
 
@@ -82,7 +83,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // Updates term status number
                 setStatusNumbers(termEntities.size(), termStatus);
                 if (mAdapter == null) {
-                    mAdapter = new TermAdapter(termData, MainActivity.this);
+                    mAdapter = new TermAdapter(termData, MainActivity.this, RecyclerContext.PARENT);
                 } else {
                     mAdapter.notifyDataSetChanged();
                 }
@@ -157,7 +158,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void showCourses(View view) {
-        //TODO: Write method
+        Intent intent = new Intent(this, CourseActivity.class);
+        startActivity(intent);
     }
 
     public void showAssessments(View view) {

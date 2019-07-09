@@ -18,6 +18,7 @@ import com.taylorvories.c196.utilities.SampleData;
 public class AppRepository {
     private static AppRepository ourInstance;
     public LiveData<List<Term>> mTerms;
+    public LiveData<List<Course>> mCourses;
 
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();
@@ -32,6 +33,7 @@ public class AppRepository {
     private AppRepository(Context context) {
         mDb = AppDatabase.getInstance(context);
         mTerms = getAllTerms();
+        mCourses = getAllCourses();
     }
 
     public void addSampleData() {
