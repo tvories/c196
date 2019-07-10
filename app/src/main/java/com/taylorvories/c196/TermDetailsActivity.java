@@ -1,14 +1,8 @@
 package com.taylorvories.c196;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import androidx.annotation.Nullable;
@@ -25,9 +19,7 @@ import com.taylorvories.c196.ui.RecyclerContext;
 import com.taylorvories.c196.ui.TermAdapter;
 import com.taylorvories.c196.utilities.TextFormatting;
 import com.taylorvories.c196.viewmodel.EditorViewModel;
-import com.taylorvories.c196.viewmodel.TermViewModel;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -106,7 +98,7 @@ public class TermDetailsActivity extends AppCompatActivity {
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             termId = extras.getInt(TERM_ID_KEY);
-            mViewModel.loadData(termId);
+            mViewModel.loadTermData(termId);
         } else {
             finish();
         }

@@ -28,8 +28,8 @@ public class CourseActivity extends AppCompatActivity {
 
     @OnClick(R.id.course_fab)
     void fabClickHandler() {
-//        Intent intent = new Intent(this, CourseEditActivity.class);
-//        startActivity(intent);
+        Intent intent = new Intent(this, CourseEditActivity.class);
+        startActivity(intent);
     }
 
     private List<Course> courseData = new ArrayList<>();

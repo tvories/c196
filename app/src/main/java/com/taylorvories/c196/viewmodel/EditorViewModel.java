@@ -10,6 +10,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.taylorvories.c196.database.AppRepository;
 import com.taylorvories.c196.models.Course;
+import com.taylorvories.c196.models.CourseStatus;
 import com.taylorvories.c196.models.Term;
 
 import java.util.Date;
@@ -19,7 +20,9 @@ import java.util.concurrent.Executors;
 
 public class EditorViewModel extends AndroidViewModel {
     public MutableLiveData<Term> mLiveTerm = new MutableLiveData<>();
+    public MutableLiveData<Course> mLiveCourse = new MutableLiveData<>();
     public LiveData<List<Term>> mTerms;
+    public LiveData<List<Course>> mCourses;
     private AppRepository mRepository;
     private Executor executor = Executors.newSingleThreadExecutor();
 
@@ -27,12 +30,20 @@ public class EditorViewModel extends AndroidViewModel {
         super(application);
         mRepository = AppRepository.getInstance(getApplication());
         mTerms = mRepository.mTerms;
+        mCourses = mRepository.mCourses;
     }
 
-    public void loadData(final int termId) {
+    public void loadTermData(final int termId) {
         executor.execute(() -> {
             Term term = mRepository.getTermById(termId);
             mLiveTerm.postValue(term);
+        });
+    }
+
+    public void loadCourseData(final int courseId) {
+        executor.execute(() -> {
+            Course course = mRepository.getCourseById(courseId);
+            mLiveCourse.postValue(course);
         });
     }
 
@@ -52,8 +63,29 @@ public class EditorViewModel extends AndroidViewModel {
         mRepository.insertTerm(term);
     }
 
+    public void saveCourse(String courseTitle, Date startDate, Date endDate, CourseStatus courseStatus) {
+        Course course = mLiveCourse.getValue();
+
+        if(course == null) {
+            if (TextUtils.isEmpty(courseTitle.trim())) {
+                return;
+            }
+            course = new Course(courseTitle.trim(), startDate, endDate, courseStatus);
+        } else {
+            course.setTitle(courseTitle.trim());
+            course.setStartDate(startDate);
+            course.setAnticipatedEndDate(endDate);
+            course.setCourseStatus(courseStatus);
+        }
+        mRepository.insertCourse(course);
+    }
+
     public void deleteTerm() {
         mRepository.deleteTerm(mLiveTerm.getValue());
+    }
+
+    public void deleteCourse() {
+        mRepository.deleteCourse(mLiveCourse.getValue());
     }
 
     public LiveData<List<Course>> getCoursesInTerm(int termId) {

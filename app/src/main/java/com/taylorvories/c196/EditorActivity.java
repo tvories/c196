@@ -8,10 +8,8 @@ import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.taylorvories.c196.models.Term;
 import com.taylorvories.c196.viewmodel.EditorViewModel;
 
 import butterknife.BindView;
@@ -61,7 +59,7 @@ public class EditorActivity extends AppCompatActivity {
         } else {
             setTitle(getString(R.string.edit_term));
             int termId = extras.getInt(TERM_ID_KEY);
-            mViewModel.loadData(termId);
+            mViewModel.loadTermData(termId);
         }
     }
 

@@ -28,7 +28,9 @@
     <string name="nav_home_title">Home</string>
     <string name="term_details">Term Details</string>
     <string name="term_edit_title_hint">Edit Title</string>
+    <string name="course_edit_title_hint">Edit Title</string>
     <string name="term_edit_start_hint">Start Date (MM/DD/YYYY)</string>
+    <string name="course_edit_start_hint">Start Date (MM/DD/YYYY)</string>
     <string name="term_edit_btn_start">Select Date</string>
     <string name="term_edit_end_hint">End Date (MM/DD/YYY)</string>
     <string name="term_edit_btn_end">Select Date</string>
@@ -37,4 +39,10 @@
     <string name="term_detail_end_label">End Date</string>
     <string name="term_detail_courses_label">Courses</string>
     <string name="course_details">Course Details</string>
+    <string name="course_edit_btn_start">Select Date</string>
+    <string name="course_edit_end_hint">Anticipated End Date (MM/DD/YYY</string>
+    <string name="course_edit_btn_end">Select Date</string>
+    <string name="course_edit_status_dropdown">Course Status</string>
+    <string name="new_course">New Course</string>
+    <string name="edit_course">Edit Course</string>
 </resources>

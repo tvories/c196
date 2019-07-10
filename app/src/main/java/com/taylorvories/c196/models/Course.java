@@ -37,12 +37,20 @@ public class Course {
         this.termId = termId;
     }
 
+    @Ignore
     public Course(String title, Date startDate, Date anticipatedEndDate, CourseStatus courseStatus, int termId) {
         this.title = title;
         this.startDate = startDate;
         this.anticipatedEndDate = anticipatedEndDate;
         this.courseStatus = courseStatus;
         this.termId = termId;
+    }
+
+    public Course(String title, Date startDate, Date anticipatedEndDate, CourseStatus courseStatus) {
+        this.title = title;
+        this.startDate = startDate;
+        this.anticipatedEndDate = anticipatedEndDate;
+        this.courseStatus = courseStatus;
     }
 
     public int getId() {

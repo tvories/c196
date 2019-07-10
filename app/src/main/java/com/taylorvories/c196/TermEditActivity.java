@@ -2,21 +2,15 @@ package com.taylorvories.c196;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.fragment.app.DialogFragment;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.taylorvories.c196.utilities.TextFormatting;
@@ -90,7 +84,7 @@ public class TermEditActivity extends AppCompatActivity {
         } else {
             setTitle(getString(R.string.edit_term));
             int termId = extras.getInt(TERM_ID_KEY);
-            mViewModel.loadData(termId);
+            mViewModel.loadTermData(termId);
         }
     }
 
