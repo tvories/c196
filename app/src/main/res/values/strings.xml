@@ -45,4 +45,8 @@
     <string name="course_edit_status_dropdown">Course Status</string>
     <string name="new_course">New Course</string>
     <string name="edit_course">Edit Course</string>
+    <string name="course_detail_start_label">Start Date</string>
+    <string name="course_detail_end_label">End Date</string>
+    <string name="course_detail_assessments_label">Assessments</string>
+    <string name="course_detail_status_label">Status</string>
 </resources>

@@ -14,6 +14,7 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
+import com.taylorvories.c196.CourseDetailsActivity;
 import com.taylorvories.c196.CourseEditActivity;
 import com.taylorvories.c196.R;
 import com.taylorvories.c196.models.Course;
@@ -57,11 +58,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             case PARENT:
                 Log.v("rContext", "rContext is " + rContext.name());
                 holder.courseFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_edit));
-//                holder.courseImageBtn.setOnClickListener(v -> {
-//                    Intent intent = new Intent(mContext, CourseDetailsActivity.class);
-//                    intent.putExtra(COURSE_ID_KEY, course.getId());
-//                    mContext.startActivity(intent);
-//                });
+                holder.courseImageBtn.setOnClickListener(v -> {
+                    Intent intent = new Intent(mContext, CourseDetailsActivity.class);
+                    intent.putExtra(COURSE_ID_KEY, course.getId());
+                    mContext.startActivity(intent);
+                });
 
                 holder.courseFab.setOnClickListener(v -> {
                     Intent intent = new Intent(mContext, CourseEditActivity.class);

@@ -39,6 +39,7 @@
         <activity android:name=".TermDetailsActivity" />
         <activity android:name=".CourseActivity" />
         <activity android:name=".CourseEditActivity" />
+        <activity android:name=".CourseDetailsActivity" />
 
     </application>
 
