@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.core.content.ContextCompat;
@@ -68,8 +67,10 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.ViewHolder> {
                     intent.putExtra(TERM_ID_KEY, term.getId());
                     mContext.startActivity(intent);
                 });
+                break;
             case CHILD:
                 holder.termFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_delete));
+                break;
         }
     }
 

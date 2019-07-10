@@ -2,6 +2,7 @@ package com.taylorvories.c196.ui;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -54,6 +55,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
 
         switch(rContext) {
             case PARENT:
+                Log.v("rContext", "rContext is " + rContext.name());
                 holder.courseFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_edit));
 //                holder.courseImageBtn.setOnClickListener(v -> {
 //                    Intent intent = new Intent(mContext, CourseDetailsActivity.class);
@@ -66,8 +68,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     intent.putExtra(COURSE_ID_KEY, course.getId());
                     mContext.startActivity(intent);
                 });
+                break;
             case CHILD:
+                Log.v("rContext", "If rContext is PARENT this is bad.  rContext: " + rContext.name());
                 holder.courseFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_delete));
+                break;
         }
     }
 
