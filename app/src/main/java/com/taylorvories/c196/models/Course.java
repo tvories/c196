@@ -9,10 +9,7 @@ import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "courses", foreignKeys = @ForeignKey(entity = Term.class,
-                                                        parentColumns = "id",
-                                                        childColumns = "termId",
-                                                        onDelete = CASCADE))
+@Entity(tableName = "courses")
 public class Course {
     @PrimaryKey(autoGenerate = true)
     private int id;

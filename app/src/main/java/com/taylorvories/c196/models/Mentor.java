@@ -7,10 +7,7 @@ import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "mentors", foreignKeys = @ForeignKey(entity = Course.class,
-                                                        parentColumns = "id",
-                                                        childColumns = "courseId",
-                                                        onDelete = CASCADE))
+@Entity(tableName = "mentors")
 public class Mentor {
     @PrimaryKey(autoGenerate = true)
     private int id;

@@ -49,4 +49,5 @@
     <string name="course_detail_end_label">End Date</string>
     <string name="course_detail_assessments_label">Assessments</string>
     <string name="course_detail_status_label">Status</string>
+    <string name="assessment_details">Assessment Details</string>
 </resources>

@@ -40,6 +40,9 @@
         <activity android:name=".CourseActivity" />
         <activity android:name=".CourseEditActivity" />
         <activity android:name=".CourseDetailsActivity" />
+        <activity android:name=".AssessmentEditActivity" />
+        <activity android:name=".AssessmentDetailsActivity" />
+        <activity android:name=".AssessmentActivity" />
 
     </application>
 
