@@ -1,6 +1,76 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AssessmentEditActivity"
+    tools:showIn="@layout/activity_assessment_edit">
 
-</LinearLayout>
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/ass_edit_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:hint="@string/ass_edit_title_hint"
+            android:autofillHints="@string/ass_edit_title_hint"
+            android:inputType="textCapWords"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <EditText
+            android:id="@+id/ass_edit_date"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:layout_marginTop="16dp"
+            android:hint="@string/ass_edit_date_hint"
+            android:inputType="date"
+            app:layout_constraintEnd_toStartOf="@+id/ass_edit_date_btn"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ass_edit_title" />
+
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:minWidth="@dimen/edit_icon_size"
+            android:minHeight="@dimen/edit_icon_size"
+            android:id="@+id/ass_edit_date_btn"
+            android:background="@drawable/ic_term_icon"
+            android:scaleType="fitXY"
+            android:layout_margin="@dimen/text_margin"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/ass_edit_title"
+            android:contentDescription="@string/ass_edit_btn_start" />
+
+        <TextView
+            android:id="@+id/ass_edit_type_label"
+            android:layout_width="@dimen/detail_label_width"
+            android:layout_height="wrap_content"
+            android:text="@string/ass_edit_status_label"
+            android:layout_margin="@dimen/text_margin"
+            app:layout_constraintTop_toBottomOf="@+id/ass_edit_date"
+            app:layout_constraintStart_toStartOf="@id/ass_edit_type_dropdown"
+            android:textSize="20sp"/>
+
+        <Spinner
+            android:id="@+id/ass_edit_type_dropdown"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:spinnerMode="dropdown"
+            android:layout_margin="@dimen/text_margin"
+            app:layout_constraintTop_toBottomOf="@+id/ass_edit_date"
+            app:layout_constraintStart_toEndOf="@+id/ass_edit_type_label"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/ass_edit_status_dropdown"/>
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.core.widget.NestedScrollView>

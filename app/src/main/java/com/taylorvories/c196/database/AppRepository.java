@@ -19,6 +19,7 @@ public class AppRepository {
     private static AppRepository ourInstance;
     public LiveData<List<Term>> mTerms;
     public LiveData<List<Course>> mCourses;
+    public LiveData<List<Assessment>> mAssessments;
 
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();
@@ -34,6 +35,7 @@ public class AppRepository {
         mDb = AppDatabase.getInstance(context);
         mTerms = getAllTerms();
         mCourses = getAllCourses();
+        mAssessments = getAllAssessments();
     }
 
     public void addSampleData() {

@@ -50,4 +50,12 @@
     <string name="course_detail_assessments_label">Assessments</string>
     <string name="course_detail_status_label">Status</string>
     <string name="assessment_details">Assessment Details</string>
+    <string name="ass_edit_title_hint">Edit Title</string>
+    <string name="ass_edit_date_hint">Assessment Date (MM/DD/YYY)</string>
+    <string name="ass_edit_btn_start">Select Date</string>
+    <string name="ass_edit_status_dropdown">Type of Assessment</string>
+    <string name="ass_edit_status_label">Assessment Type</string>
+    <string name="course_edit_status_label">Course Status</string>
+    <string name="ass_detail_date_label">Date</string>
+    <string name="ass_detail_type_label">Type</string>
 </resources>

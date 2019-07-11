@@ -7,19 +7,19 @@ import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 
 import com.taylorvories.c196.database.AppRepository;
-import com.taylorvories.c196.models.Course;
+import com.taylorvories.c196.models.Assessment;
 
 import java.util.List;
 
-public class CourseViewModel extends AndroidViewModel {
+public class AssessmentViewModel extends AndroidViewModel {
 
-    public LiveData<List<Course>> mCourses;
+    public LiveData<List<Assessment>> mAssessments;
     private AppRepository mRepository;
 
-    public CourseViewModel(@NonNull Application application) {
+    public AssessmentViewModel(@NonNull Application application) {
         super(application);
 
         mRepository = AppRepository.getInstance(application.getApplicationContext());
-        mCourses = mRepository.mCourses;
+        mAssessments = mRepository.mAssessments;
     }
 }

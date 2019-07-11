@@ -1,6 +1,53 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".AssessmentDetailsActivity">
 
-</LinearLayout>
+    <TextView
+        android:id="@+id/ass_detail_date_label"
+        android:layout_width="@dimen/detail_label_width"
+        android:layout_height="wrap_content"
+        android:text="@string/ass_detail_date_label"
+        android:layout_margin="@dimen/text_margin"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/ass_detail_date"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="Date"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toEndOf="@id/ass_detail_date_label"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/ass_detail_type_label"
+        android:layout_width="@dimen/detail_label_width"
+        android:layout_height="wrap_content"
+        android:text="@string/ass_detail_type_label"
+        android:layout_margin="@dimen/text_margin"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/ass_detail_date_label"/>
+
+    <TextView
+        android:id="@+id/course_detail_status"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="Performance Assessment"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintTop_toBottomOf="@+id/ass_detail_date"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/ass_detail_type_label"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
