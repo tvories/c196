@@ -58,4 +58,6 @@
     <string name="course_edit_status_label">Course Status</string>
     <string name="ass_detail_date_label">Date</string>
     <string name="ass_detail_type_label">Type</string>
+    <string name="new_assessment">New Assessment</string>
+    <string name="edit_assessment">Edit Assessment</string>
 </resources>

@@ -23,11 +23,18 @@ public class Assessment {
 
     }
 
+    @Ignore
     public Assessment(String title, Date date, AssessmentType assessmentType, int courseId) {
         this.title = title;
         this.date = date;
         this.assessmentType = assessmentType;
         this.courseId = courseId;
+    }
+
+    public Assessment(String title, Date date, AssessmentType assessmentType) {
+        this.title = title;
+        this.date = date;
+        this.assessmentType = assessmentType;
     }
 
     public int getId() {

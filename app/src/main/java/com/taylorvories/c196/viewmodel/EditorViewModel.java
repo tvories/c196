@@ -9,6 +9,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.taylorvories.c196.database.AppRepository;
+import com.taylorvories.c196.models.Assessment;
+import com.taylorvories.c196.models.AssessmentType;
 import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.CourseStatus;
 import com.taylorvories.c196.models.Term;
@@ -21,8 +23,10 @@ import java.util.concurrent.Executors;
 public class EditorViewModel extends AndroidViewModel {
     public MutableLiveData<Term> mLiveTerm = new MutableLiveData<>();
     public MutableLiveData<Course> mLiveCourse = new MutableLiveData<>();
+    public MutableLiveData<Assessment> mLiveAssessment = new MutableLiveData<>();
     public LiveData<List<Term>> mTerms;
     public LiveData<List<Course>> mCourses;
+    public LiveData<List<Assessment>> mAssessments;
     private AppRepository mRepository;
     private Executor executor = Executors.newSingleThreadExecutor();
 
@@ -31,6 +35,7 @@ public class EditorViewModel extends AndroidViewModel {
         mRepository = AppRepository.getInstance(getApplication());
         mTerms = mRepository.mTerms;
         mCourses = mRepository.mCourses;
+        mAssessments = mRepository.mAssessments;
     }
 
     public void loadTermData(final int termId) {
@@ -44,6 +49,13 @@ public class EditorViewModel extends AndroidViewModel {
         executor.execute(() -> {
             Course course = mRepository.getCourseById(courseId);
             mLiveCourse.postValue(course);
+        });
+    }
+
+    public void loadAssessmentData(final int assessmentId) {
+        executor.execute(() -> {
+            Assessment assessment = mRepository.getAssessmentById(assessmentId);
+            mLiveAssessment.postValue(assessment);
         });
     }
 
@@ -80,12 +92,32 @@ public class EditorViewModel extends AndroidViewModel {
         mRepository.insertCourse(course);
     }
 
+    public void saveAssessment(String assessmentTitle, Date date, AssessmentType assessmentType) {
+        Assessment assessment = mLiveAssessment.getValue();
+
+        if(assessment == null) {
+            if(TextUtils.isEmpty(assessmentTitle.trim())) {
+                return;
+            }
+            assessment = new Assessment(assessmentTitle.trim(), date, assessmentType);
+        } else {
+            assessment.setTitle(assessmentTitle.trim());
+            assessment.setDate(date);
+            assessment.setAssessmentType(assessmentType);
+        }
+        mRepository.insertAssessment(assessment);
+    }
+
     public void deleteTerm() {
         mRepository.deleteTerm(mLiveTerm.getValue());
     }
 
     public void deleteCourse() {
         mRepository.deleteCourse(mLiveCourse.getValue());
+    }
+
+    public void deleteAssessment() {
+        mRepository.deleteAssessment(mLiveAssessment.getValue());
     }
 
     public LiveData<List<Course>> getCoursesInTerm(int termId) {
