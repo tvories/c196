@@ -163,7 +163,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
     }
 
     public void showAssessments(View view) {
-        //TODO: Write Method
+        Intent intent = new Intent(this, AssessmentActivity.class);
+        startActivity(intent);
     }
 
     @Override
