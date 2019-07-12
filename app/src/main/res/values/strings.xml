@@ -60,4 +60,12 @@
     <string name="ass_detail_type_label">Type</string>
     <string name="new_assessment">New Assessment</string>
     <string name="edit_assessment">Edit Assessment</string>
+    <string name="mentor_edit_name_hint">Mentor Name</string>
+    <string name="mentor_edit_email_hint">Email</string>
+    <string name="mentor_edit_phone">Phone</string>
+    <string name="mentor_detail_email_label">Email</string>
+    <string name="mentor_detail_phone_label">Phone</string>
+    <string name="mentor_details">Mentor Details</string>
+    <string name="new_mentor">New Mentor</string>
+    <string name="edit_mentor">Edit Mentor</string>
 </resources>

@@ -20,6 +20,7 @@ public class AppRepository {
     public LiveData<List<Term>> mTerms;
     public LiveData<List<Course>> mCourses;
     public LiveData<List<Assessment>> mAssessments;
+    public LiveData<List<Mentor>> mMentors;
 
     private AppDatabase mDb;
     private Executor executor = Executors.newSingleThreadExecutor();
@@ -36,6 +37,7 @@ public class AppRepository {
         mTerms = getAllTerms();
         mCourses = getAllCourses();
         mAssessments = getAllAssessments();
+        mMentors = getAllMentors();
     }
 
     public void addSampleData() {

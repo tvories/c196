@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    app:layout_behavior="@string/appbar_scrolling_view_behavior"
+    tools:context=".MentorDetailsActivity">
+
+    <TextView
+        android:id="@+id/mentor_detail_email_label"
+        android:layout_width="@dimen/detail_label_width_mentor"
+        android:layout_height="wrap_content"
+        android:text="@string/mentor_detail_email_label"
+        android:layout_margin="@dimen/text_margin"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/mentor_detail_email"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="mentor@email.com"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toEndOf="@id/mentor_detail_email_label"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+    <TextView
+        android:id="@+id/mentor_detail_phone_label"
+        android:layout_width="@dimen/detail_label_width_mentor"
+        android:layout_height="wrap_content"
+        android:text="@string/mentor_detail_phone_label"
+        android:layout_margin="@dimen/text_margin"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mentor_detail_email_label"/>
+
+    <TextView
+        android:id="@+id/mentor_detail_phone"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/text_margin"
+        android:text="555-223-1567"
+        android:textSize="@dimen/detail_text_size"
+        app:layout_constraintStart_toEndOf="@id/mentor_detail_phone_label"
+        app:layout_constraintTop_toBottomOf="@+id/mentor_detail_email"
+        app:layout_constraintEnd_toEndOf="parent"/>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

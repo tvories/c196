@@ -12,7 +12,7 @@ import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.Mentor;
 import com.taylorvories.c196.models.Term;
 
-@Database(entities = {Term.class, Course.class, Assessment.class, Mentor.class}, version = 6)
+@Database(entities = {Term.class, Course.class, Assessment.class, Mentor.class}, version = 7)
 @TypeConverters({DateConverter.class, CourseStatusConverter.class, AssessmentTypeConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
     private static final String DATABASE_NAME = "AppDatabase.db";

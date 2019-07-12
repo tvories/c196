@@ -13,6 +13,7 @@ import com.taylorvories.c196.models.Assessment;
 import com.taylorvories.c196.models.AssessmentType;
 import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.CourseStatus;
+import com.taylorvories.c196.models.Mentor;
 import com.taylorvories.c196.models.Term;
 
 import java.util.Date;
@@ -24,9 +25,11 @@ public class EditorViewModel extends AndroidViewModel {
     public MutableLiveData<Term> mLiveTerm = new MutableLiveData<>();
     public MutableLiveData<Course> mLiveCourse = new MutableLiveData<>();
     public MutableLiveData<Assessment> mLiveAssessment = new MutableLiveData<>();
+    public MutableLiveData<Mentor> mLiveMentor = new MutableLiveData<>();
     public LiveData<List<Term>> mTerms;
     public LiveData<List<Course>> mCourses;
     public LiveData<List<Assessment>> mAssessments;
+    public LiveData<List<Mentor>> mMentors;
     private AppRepository mRepository;
     private Executor executor = Executors.newSingleThreadExecutor();
 
@@ -36,6 +39,7 @@ public class EditorViewModel extends AndroidViewModel {
         mTerms = mRepository.mTerms;
         mCourses = mRepository.mCourses;
         mAssessments = mRepository.mAssessments;
+        mMentors = mRepository.mMentors;
     }
 
     public void loadTermData(final int termId) {
@@ -56,6 +60,13 @@ public class EditorViewModel extends AndroidViewModel {
         executor.execute(() -> {
             Assessment assessment = mRepository.getAssessmentById(assessmentId);
             mLiveAssessment.postValue(assessment);
+        });
+    }
+
+    public void loadMentorData(final int mentorId) {
+        executor.execute(() -> {
+            Mentor mentor = mRepository.getMentorById(mentorId);
+            mLiveMentor.postValue(mentor);
         });
     }
 
@@ -106,6 +117,10 @@ public class EditorViewModel extends AndroidViewModel {
             assessment.setAssessmentType(assessmentType);
         }
         mRepository.insertAssessment(assessment);
+    }
+
+    public void saveMentor(String name, String email, String phone) {
+        Mentor mentor = mLiveMentor.getValue();
     }
 
     public void deleteTerm() {

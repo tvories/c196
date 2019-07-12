@@ -23,4 +23,5 @@
     <dimen name="edit_icon_size">35dp</dimen>
     <dimen name="detail_text_size">25sp</dimen>
     <dimen name="detail_label_width">180dp</dimen>
+    <dimen name="detail_label_width_mentor">80dp</dimen>
 </resources>

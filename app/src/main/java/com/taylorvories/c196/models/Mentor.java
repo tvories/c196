@@ -21,11 +21,18 @@ public class Mentor {
 
     }
 
+    @Ignore
     public Mentor(String name, String email, String phone, int courseId) {
         this.name = name;
         this.email = email;
         this.phone = phone;
         this.courseId = courseId;
+    }
+
+    public Mentor(String name, String email, String phone) {
+        this.name = name;
+        this.email = email;
+        this.phone = phone;
     }
 
     public int getId() {
