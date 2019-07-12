@@ -24,7 +24,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:text="mentor@email.com"
-        android:textSize="@dimen/detail_text_size"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@id/mentor_detail_email_label"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintEnd_toEndOf="parent"/>
@@ -45,9 +45,9 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/text_margin"
         android:text="555-223-1567"
-        android:textSize="@dimen/detail_text_size"
+        android:textSize="20sp"
         app:layout_constraintStart_toEndOf="@id/mentor_detail_phone_label"
-        app:layout_constraintTop_toBottomOf="@+id/mentor_detail_email"
+        app:layout_constraintTop_toBottomOf="@+id/mentor_detail_email_label"
         app:layout_constraintEnd_toEndOf="parent"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

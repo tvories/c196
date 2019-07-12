@@ -29,7 +29,7 @@ public interface CourseDao {
     LiveData<List<Course>> getAll();
 
     @Query("SELECT * FROM courses WHERE termId = :termId")
-    LiveData<List<Course>> getCourseByTerm(final int termId);
+    LiveData<List<Course>> getCoursesByTerm(final int termId);
 
     @Query("DELETE FROM courses")
     int deleteAll();

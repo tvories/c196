@@ -31,6 +31,10 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
     DrawerLayout mDrawer;
     NavigationView mNavigationView;
@@ -59,6 +63,8 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         // Tells icons to use full color
         mNavigationView.setItemIconTintList(null);
         mNavigationView.setNavigationItemSelectedListener(this);
+
+        ButterKnife.bind(this);
 
         initViewModel();
 
@@ -164,6 +170,12 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
 
     public void showAssessments(View view) {
         Intent intent = new Intent(this, AssessmentActivity.class);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.btn_mentors)
+    public void showMentors() {
+        Intent intent = new Intent(this, MentorActivity.class);
         startActivity(intent);
     }
 

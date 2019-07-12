@@ -79,8 +79,8 @@ public class AppRepository {
         return mDb.courseDao().getCourseById(courseId);
     }
 
-    public LiveData<List<Course>> getCourseByTerm(final int termId) {
-        return mDb.courseDao().getCourseByTerm(termId);
+    public LiveData<List<Course>> getCoursesByTerm(final int termId) {
+        return mDb.courseDao().getCoursesByTerm(termId);
     }
 
     public void insertCourse(final Course course) {
@@ -98,6 +98,10 @@ public class AppRepository {
 
     public Assessment getAssessmentById(int assessmentId) {
         return mDb.assessmentDao().getAssessmentById(assessmentId);
+    }
+
+    public LiveData<List<Assessment>> getAssessmentsByCourse(final int courseId) {
+        return mDb.assessmentDao().getAssessmentsByCourse(courseId);
     }
 
     public void insertAssessment(final Assessment assessment) {

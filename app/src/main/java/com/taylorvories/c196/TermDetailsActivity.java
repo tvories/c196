@@ -15,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.Term;
+import com.taylorvories.c196.ui.CourseAdapter;
 import com.taylorvories.c196.ui.RecyclerContext;
 import com.taylorvories.c196.ui.TermAdapter;
 import com.taylorvories.c196.utilities.TextFormatting;
@@ -39,12 +40,10 @@ public class TermDetailsActivity extends AppCompatActivity {
     @BindView(R.id.rview_term_detail_course)
     RecyclerView mCourseRecyclerView;
 
-    private List<Course> courseList = new ArrayList<>();
-    private List<Term> termData = new ArrayList<>();
+    private List<Course> courseData = new ArrayList<>();
     private Toolbar toolbar;
     private int termId;
-    private ArrayAdapter<String> courseListAdapter;
-    private TermAdapter mTermAdapter;
+    private CourseAdapter mCourseAdapter;
     private EditorViewModel mViewModel;
 
     @Override
@@ -74,26 +73,19 @@ public class TermDetailsActivity extends AppCompatActivity {
             toolbar.setTitle(term.getTitle());
         });
 
-        // courses
+        // load and observe courses
         final Observer<List<Course>> courseObserver =
-                courseEntities -> {
-                    courseList.clear();
-                    courseList.addAll(courseEntities);
-                    loadCourses();
-                };
+            courseEntities -> {
+                courseData.clear();
+                courseData.addAll(courseEntities);
 
-        final Observer<List<Term>> termObserver =
-                termEntities -> {
-                    termData.clear();
-                    termData.addAll(termEntities);
-
-                    if(mTermAdapter == null) {
-                        mTermAdapter = new TermAdapter(termData, TermDetailsActivity.this, RecyclerContext.CHILD);
-                        mCourseRecyclerView.setAdapter(mTermAdapter);
-                    } else {
-                        mTermAdapter.notifyDataSetChanged();
-                    }
-                };
+                if(mCourseAdapter == null) {
+                    mCourseAdapter = new CourseAdapter(courseData, TermDetailsActivity.this, RecyclerContext.CHILD);
+                    mCourseRecyclerView.setAdapter(mCourseAdapter);
+                } else {
+                    mCourseAdapter.notifyDataSetChanged();
+                }
+            };
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
@@ -103,12 +95,7 @@ public class TermDetailsActivity extends AppCompatActivity {
             finish();
         }
 
-        // mViewModel.getCoursesInTerm(termId).observe(this, courseObserver);
-        mViewModel.mTerms.observe(this, termObserver);
-    }
-
-    private void loadCourses() {
-        courseListAdapter.notifyDataSetChanged();
+        mViewModel.getCoursesInTerm(termId).observe(this, courseObserver);
     }
 
     @OnClick(R.id.fab_edit_term)

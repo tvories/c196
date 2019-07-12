@@ -7,6 +7,7 @@ import android.widget.TextView;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -14,7 +15,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.taylorvories.c196.models.Assessment;
 import com.taylorvories.c196.models.Course;
+import com.taylorvories.c196.ui.AssessmentAdapter;
 import com.taylorvories.c196.ui.CourseAdapter;
+import com.taylorvories.c196.ui.RecyclerContext;
 import com.taylorvories.c196.utilities.TextFormatting;
 import com.taylorvories.c196.viewmodel.EditorViewModel;
 
@@ -40,11 +43,10 @@ public class CourseDetailsActivity extends AppCompatActivity {
     @BindView(R.id.course_detail_status)
     TextView tvCourseStatus;
 
-    private List<Assessment> assessmentList = new ArrayList<>();
-    private List<Course> courseData = new ArrayList<>();
+    private List<Assessment> assessmentData = new ArrayList<>();
     private Toolbar toolbar;
     private int courseId;
-    private CourseAdapter mCourseAdapter;
+    private AssessmentAdapter mAssessmentAdapter;
     private EditorViewModel mViewModel;
 
     @Override
@@ -76,7 +78,20 @@ public class CourseDetailsActivity extends AppCompatActivity {
         });
 
         // Assessments
-        //TODO: Write assessment piece
+        final Observer<List<Assessment>> assessmentObserver =
+            assessmentEntities -> {
+                assessmentData.clear();
+                assessmentData.addAll(assessmentEntities);
+
+                if(mAssessmentAdapter == null) {
+                    mAssessmentAdapter = new AssessmentAdapter(assessmentData, CourseDetailsActivity.this, RecyclerContext.CHILD);
+                    mAssRecyclerView.setAdapter(mAssessmentAdapter);
+                } else {
+                    mAssessmentAdapter.notifyDataSetChanged();
+                }
+            };
+
+
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
@@ -86,7 +101,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
             finish();
         }
 
-        //TODO: Add assessment observer
+        mViewModel.getAssessmentsInCourse(courseId).observe(this, assessmentObserver);
     }
 
     @OnClick(R.id.fab_edit_course)

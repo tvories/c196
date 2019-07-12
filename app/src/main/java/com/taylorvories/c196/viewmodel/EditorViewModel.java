@@ -121,6 +121,18 @@ public class EditorViewModel extends AndroidViewModel {
 
     public void saveMentor(String name, String email, String phone) {
         Mentor mentor = mLiveMentor.getValue();
+
+        if(mentor == null) {
+            if(TextUtils.isEmpty(name.trim())) {
+                return;
+            }
+            mentor = new Mentor(name, email, phone);
+        } else {
+            mentor.setName(name);
+            mentor.setEmail(email);
+            mentor.setPhone(phone);
+        }
+        mRepository.insertMentor(mentor);
     }
 
     public void deleteTerm() {
@@ -136,7 +148,11 @@ public class EditorViewModel extends AndroidViewModel {
     }
 
     public LiveData<List<Course>> getCoursesInTerm(int termId) {
-        return (mRepository.getCourseByTerm(termId));
+        return (mRepository.getCoursesByTerm(termId));
+    }
+
+    public LiveData<List<Assessment>> getAssessmentsInCourse(int courseId) {
+        return (mRepository.getAssessmentsByCourse(courseId));
     }
 
     public List<Course> getAllCourses() {
