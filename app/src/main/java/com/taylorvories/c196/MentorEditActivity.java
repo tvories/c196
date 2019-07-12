@@ -21,6 +21,7 @@ import java.util.Objects;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.taylorvories.c196.utilities.Constants.EDITING_KEY;
 import static com.taylorvories.c196.utilities.Constants.MENTOR_ID_KEY;
@@ -108,5 +109,11 @@ public class MentorEditActivity extends AppCompatActivity {
     public void saveAndReturn() {
         mViewModel.saveMentor(tvMentorName.getText().toString(), tvMentorEmail.getText().toString(), tvMentorPhone.getText().toString());
         finish();
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        outState.putBoolean(EDITING_KEY, true);
+        super.onSaveInstanceState(outState);
     }
 }

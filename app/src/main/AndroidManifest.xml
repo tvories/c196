@@ -21,15 +21,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity
-            android:name=".EditorActivity"
-            android:label="@string/title_activity_editor"
-            android:parentActivityName=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-            <meta-data
-                android:name="android.support.PARENT_ACTIVITY"
-                android:value="com.taylorvories.c196.MainActivity"/>
-        </activity>
         <activity android:name=".TermActivity"
             android:label="@string/title_activity_terms"
             android:parentActivityName=".MainActivity"
