@@ -1,5 +1,6 @@
 package com.taylorvories.c196.ui;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -71,8 +72,23 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                 });
                 break;
             case CHILD:
-                Log.v("rContext", "If rContext is PARENT this is bad.  rContext: " + rContext.name());
                 holder.courseFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_delete));
+                holder.courseFab.setOnClickListener(v -> {
+                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+                    builder.setTitle("Are you sure you want to remove this course?");
+                    builder.setMessage("This will not delete the course, only remove it from this term.");
+                    builder.setIcon(android.R.drawable.ic_dialog_alert);
+                    builder.setPositiveButton("Continue", (dialog, id) -> {
+                        dialog.dismiss();
+                        course.setTermId(-1);
+                        mCourses.remove(position);
+                        notifyItemRemoved(position);
+                        notifyItemRangeChanged(position, mCourses.size());
+                    });
+                    builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+                    AlertDialog dialog = builder.create();
+                    dialog.show();
+                });
                 break;
         }
     }
