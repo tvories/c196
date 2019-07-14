@@ -86,19 +86,20 @@ public class EditorViewModel extends AndroidViewModel {
         mRepository.insertTerm(term);
     }
 
-    public void saveCourse(String courseTitle, Date startDate, Date endDate, CourseStatus courseStatus) {
+    public void saveCourse(String courseTitle, Date startDate, Date endDate, CourseStatus courseStatus, int termId) {
         Course course = mLiveCourse.getValue();
 
         if(course == null) {
             if (TextUtils.isEmpty(courseTitle.trim())) {
                 return;
             }
-            course = new Course(courseTitle.trim(), startDate, endDate, courseStatus);
+            course = new Course(courseTitle.trim(), startDate, endDate, courseStatus, termId);
         } else {
             course.setTitle(courseTitle.trim());
             course.setStartDate(startDate);
             course.setAnticipatedEndDate(endDate);
             course.setCourseStatus(courseStatus);
+            course.setTermId(termId);
         }
         mRepository.insertCourse(course);
     }
@@ -158,5 +159,9 @@ public class EditorViewModel extends AndroidViewModel {
     public List<Course> getAllCourses() {
         LiveData<List<Course>> courses = mRepository.getAllCourses();
         return courses.getValue();
+    }
+
+    public Term getTermById(int termId) {
+        return mRepository.getTermById(termId);
     }
 }

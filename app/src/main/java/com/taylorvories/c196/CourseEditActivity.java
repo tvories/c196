@@ -17,6 +17,7 @@ import androidx.lifecycle.ViewModelProvider;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.taylorvories.c196.models.CourseStatus;
+import com.taylorvories.c196.models.Term;
 import com.taylorvories.c196.utilities.TextFormatting;
 import com.taylorvories.c196.viewmodel.EditorViewModel;
 
@@ -24,6 +25,8 @@ import java.text.ParseException;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Objects;
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,6 +34,7 @@ import butterknife.OnClick;
 
 import static com.taylorvories.c196.utilities.Constants.COURSE_ID_KEY;
 import static com.taylorvories.c196.utilities.Constants.EDITING_KEY;
+import static com.taylorvories.c196.utilities.Constants.TERM_ID_KEY;
 
 public class CourseEditActivity extends AppCompatActivity {
     @BindView(R.id.course_edit_title)
@@ -53,7 +57,9 @@ public class CourseEditActivity extends AppCompatActivity {
 
     private EditorViewModel mViewModel;
     private boolean mNewCourse, mEditing;
+    private int termId = -1;
     private ArrayAdapter<CourseStatus> courseStatusAdapter;
+    private Executor executor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -101,6 +107,10 @@ public class CourseEditActivity extends AppCompatActivity {
         if(extras == null) {
             setTitle(getString(R.string.new_course));
             mNewCourse = true;
+        } else if (extras.containsKey(TERM_ID_KEY)){ // Check if this is adding a course to a term
+            termId = extras.getInt(TERM_ID_KEY);
+            Log.v("DEBUG", "Extras term ID: " + termId);
+            setTitle(getString(R.string.new_course));
         } else {
             setTitle(getString(R.string.edit_course));
             int courseId = extras.getInt(COURSE_ID_KEY);
@@ -142,7 +152,7 @@ public class CourseEditActivity extends AppCompatActivity {
         try {
             Date startDate = TextFormatting.fullDateFormat.parse(tvCourseStartDate.getText().toString());
             Date endDate = TextFormatting.fullDateFormat.parse(tvCourseEndDate.getText().toString());
-            mViewModel.saveCourse(tvCourseTitle.getText().toString(), startDate, endDate, getSpinnerValue());
+            mViewModel.saveCourse(tvCourseTitle.getText().toString(), startDate, endDate, getSpinnerValue(), termId);
             Log.v("Saved Course", tvCourseTitle.toString());
         } catch (ParseException e) {
             Log.v("Exception", e.getLocalizedMessage());

@@ -1,24 +1,37 @@
 package com.taylorvories.c196;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.LiveData;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.taylorvories.c196.models.Course;
+import com.taylorvories.c196.ui.CourseAdapter;
+import com.taylorvories.c196.ui.RecyclerContext;
 import com.taylorvories.c196.utilities.TextFormatting;
 import com.taylorvories.c196.viewmodel.EditorViewModel;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 import butterknife.BindView;
@@ -46,6 +59,9 @@ public class TermEditActivity extends AppCompatActivity {
 
     private EditorViewModel mViewModel;
     private boolean mNewTerm, mEditing;
+    private List<Course> courseData = new ArrayList<>();
+    private LiveData<List<Course>> coursesInTerm;
+    int termId;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -62,7 +78,6 @@ public class TermEditActivity extends AppCompatActivity {
         if(savedInstanceState != null) {
             mEditing = savedInstanceState.getBoolean(EDITING_KEY);
         }
-
         initViewModel();
     }
 
@@ -83,9 +98,17 @@ public class TermEditActivity extends AppCompatActivity {
             mNewTerm = true;
         } else {
             setTitle(getString(R.string.edit_term));
-            int termId = extras.getInt(TERM_ID_KEY);
+            termId = extras.getInt(TERM_ID_KEY);
             mViewModel.loadTermData(termId);
         }
+
+        final Observer<List<Course>> courseObserver =
+            courseEntities -> {
+                courseData.clear();
+                courseData.addAll(courseEntities);
+            };
+
+        mViewModel.getCoursesInTerm(termId).observe(this, courseObserver);
     }
 
     @Override
@@ -103,10 +126,46 @@ public class TermEditActivity extends AppCompatActivity {
             saveAndReturn();
             return true;
         } else if (item.getItemId() == R.id.action_delete) {
-            mViewModel.deleteTerm();
-            finish();
+            handleDelete();
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void handleDelete() {
+        if(mViewModel.mLiveTerm.getValue() != null) {
+            String termTitle = mViewModel.mLiveTerm.getValue().getTitle();
+            if(courseData != null && courseData.size() != 0) {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Delete " + termTitle + "?");
+                builder.setMessage("Are you sure you want to delete term '" + termTitle + "'?" +
+                        "\nIt still has courses assigned to it. You will not delete the courses but " +
+                        "they will not be assigned to any terms if you delete.\nDelete term anyway?");
+                builder.setIcon(android.R.drawable.ic_dialog_alert);
+                builder.setPositiveButton("Yes", (dialog, id) -> {
+                    dialog.dismiss();
+                    mViewModel.deleteTerm();
+                    finish();
+                });
+                builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+                builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+                AlertDialog dialog = builder.create();
+                dialog.show();
+            } else {
+                AlertDialog.Builder builder = new AlertDialog.Builder(this);
+                builder.setTitle("Delete " + termTitle + "?");
+                builder.setMessage("Are you sure you want to delete term '" + termTitle + "'?");
+                builder.setIcon(android.R.drawable.ic_dialog_alert);
+                builder.setPositiveButton("Yes", (dialog, id) -> {
+                    dialog.dismiss();
+                    mViewModel.deleteTerm();
+                    finish();
+                });
+                builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+                AlertDialog dialog = builder.create();
+                dialog.show();
+
+            }
+        }
     }
 
     @Override

@@ -1,9 +1,11 @@
 package com.taylorvories.c196;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -104,5 +106,25 @@ public class TermDetailsActivity extends AppCompatActivity {
         intent.putExtra(TERM_ID_KEY, termId);
         this.startActivity(intent);
         finish();
+    }
+
+    @OnClick(R.id.fab_add_course)
+    public void courseAddButton() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Add new or existing course?");
+        builder.setMessage("Would you like to add an existing course to this term or create a new course?");
+        builder.setIcon(R.drawable.ic_add);
+        builder.setPositiveButton("New", (dialog, id) -> {
+            dialog.dismiss();
+            Intent intent = new Intent(this, CourseEditActivity.class);
+            intent.putExtra(TERM_ID_KEY, termId);
+            this.startActivity(intent);
+        });
+        builder.setNegativeButton("Existing", (dialog, id) -> {
+            dialog.dismiss();
+            Toast.makeText(this, "You better write this part", Toast.LENGTH_SHORT).show();
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

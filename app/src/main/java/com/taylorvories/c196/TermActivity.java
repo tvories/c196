@@ -35,10 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class TermActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
-    DrawerLayout mDrawer;
-    NavigationView mNavigationView;
-
+public class TermActivity extends AppCompatActivity {
 
     @BindView(R.id.term_recycler_view)
     RecyclerView mTermRecyclerView;
@@ -59,16 +56,6 @@ public class TermActivity extends AppCompatActivity implements NavigationView.On
         setContentView(R.layout.activity_term_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        mDrawer = findViewById(R.id.drawer_layout);
-        mNavigationView = findViewById(R.id.navigation_view);
-        ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawer, toolbar, R.string.nav_open, R.string.nav_close);
-        mDrawer.addDrawerListener(toggle);
-        toggle.syncState();
-
-        // Tells icons to use full color
-        mNavigationView.setItemIconTintList(null);
-        mNavigationView.setNavigationItemSelectedListener(this);
 
         ButterKnife.bind(this);
         initRecyclerView();
@@ -96,41 +83,5 @@ public class TermActivity extends AppCompatActivity implements NavigationView.On
             };
         mTermViewModel = ViewModelProviders.of(this).get(TermViewModel.class);
         mTermViewModel.mTerms.observe(this, termObserver);
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_main, menu);
-        return true;
-    }
-
-    @Override
-    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-        int id = item.getItemId();
-        int duration = Toast.LENGTH_SHORT;
-        Toast toast;
-
-        switch (id) {
-            case R.id.nav_terms:
-                toast = Toast.makeText(this, "Terms pressed", duration);
-                toast.show();
-                break;
-            case R.id.nav_courses:
-                toast = Toast.makeText(this, "Courses pressed", duration);
-                toast.show();
-                break;
-            case R.id.nav_assessments:
-                toast = Toast.makeText(this, "Assessments pressed", duration);
-                toast.show();
-                break;
-            case R.id.nav_mentors:
-                toast = Toast.makeText(this, "Mentors pressed", duration);
-                toast.show();
-                break;
-        }
-        DrawerLayout drawer = findViewById(R.id.drawer_layout);
-        drawer.closeDrawer(GravityCompat.START);
-        return true;
     }
 }
