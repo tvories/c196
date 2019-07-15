@@ -82,7 +82,7 @@ public class TermDetailsActivity extends AppCompatActivity {
                 courseData.addAll(courseEntities);
 
                 if(mCourseAdapter == null) {
-                    mCourseAdapter = new CourseAdapter(courseData, TermDetailsActivity.this, RecyclerContext.CHILD);
+                    mCourseAdapter = new CourseAdapter(courseData, TermDetailsActivity.this, RecyclerContext.CHILD, -1);
                     mCourseRecyclerView.setAdapter(mCourseAdapter);
                 } else {
                     mCourseAdapter.notifyDataSetChanged();
@@ -122,6 +122,7 @@ public class TermDetailsActivity extends AppCompatActivity {
         });
         builder.setNegativeButton("Existing", (dialog, id) -> {
             dialog.dismiss();
+            //TODO: Write recyclerview fragment and call it here.
             Toast.makeText(this, "You better write this part", Toast.LENGTH_SHORT).show();
         });
         AlertDialog dialog = builder.create();

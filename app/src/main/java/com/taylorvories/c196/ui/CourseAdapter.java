@@ -1,8 +1,10 @@
 package com.taylorvories.c196.ui;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -33,11 +35,13 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     private final List<Course> mCourses;
     private final Context mContext;
     private final RecyclerContext rContext;
+    private final int termId;
 
-    public CourseAdapter(List<Course> mCourses, Context mContext, RecyclerContext rContext) {
+    public CourseAdapter(List<Course> mCourses, Context mContext, RecyclerContext rContext, int termId) {
         this.mCourses = mCourses;
         this.mContext = mContext;
         this.rContext = rContext;
+        this.termId = termId;
     }
 
     @NonNull
@@ -56,7 +60,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         holder.tvDates.setText(startAndEnd);
 
         switch(rContext) {
-            case PARENT:
+            case MAIN:
                 Log.v("rContext", "rContext is " + rContext.name());
                 holder.courseFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_edit));
                 holder.courseImageBtn.setOnClickListener(v -> {
@@ -88,6 +92,15 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
                     AlertDialog dialog = builder.create();
                     dialog.show();
+                });
+                break;
+            case ADD:
+                holder.courseFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_add));
+                holder.courseFab.setOnClickListener(v -> {
+                    if(termId != -1) {
+                        course.setTermId(termId);
+                        ((Activity)mContext).finish();
+                    }
                 });
                 break;
         }

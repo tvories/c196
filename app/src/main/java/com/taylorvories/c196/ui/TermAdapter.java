@@ -54,7 +54,7 @@ public class TermAdapter extends RecyclerView.Adapter<TermAdapter.ViewHolder> {
         holder.tvDates.setText(startAndEnd);
 
         switch(rContext) {
-            case PARENT:
+            case MAIN:
                 holder.termFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_edit));
                 holder.termImageBtn.setOnClickListener(v -> {
                     Intent intent = new Intent(mContext, TermDetailsActivity.class);

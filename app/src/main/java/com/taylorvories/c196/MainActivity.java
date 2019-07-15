@@ -18,7 +18,6 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.lifecycle.LiveData;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -31,7 +30,6 @@ import android.widget.Toast;
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
@@ -89,7 +87,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 // Updates term status number
                 setStatusNumbers(termEntities.size(), termStatus);
                 if (mAdapter == null) {
-                    mAdapter = new TermAdapter(termData, MainActivity.this, RecyclerContext.PARENT);
+                    mAdapter = new TermAdapter(termData, MainActivity.this, RecyclerContext.MAIN);
                 } else {
                     mAdapter.notifyDataSetChanged();
                 }

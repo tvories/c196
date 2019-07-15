@@ -61,7 +61,7 @@ public class MentorActivity extends AppCompatActivity {
                 mentorData.addAll(mentorEntities);
 
                 if(mMentorAdapter == null) {
-                    mMentorAdapter = new MentorAdapter(mentorData, MentorActivity.this, RecyclerContext.PARENT);
+                    mMentorAdapter = new MentorAdapter(mentorData, MentorActivity.this, RecyclerContext.MAIN);
                     mMentorRecyclerView.setAdapter(mMentorAdapter);
                 } else {
                     mMentorAdapter.notifyDataSetChanged();

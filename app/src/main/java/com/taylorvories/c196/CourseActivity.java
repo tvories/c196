@@ -61,7 +61,7 @@ public class CourseActivity extends AppCompatActivity {
                 courseData.addAll(courseEntities);
 
                 if(mCourseAdapter == null) {
-                    mCourseAdapter = new CourseAdapter(courseData, CourseActivity.this, RecyclerContext.PARENT);
+                    mCourseAdapter = new CourseAdapter(courseData, CourseActivity.this, RecyclerContext.MAIN, -1);
                     mCourseRecyclerView.setAdapter(mCourseAdapter);
                 } else {
                     mCourseAdapter.notifyDataSetChanged();

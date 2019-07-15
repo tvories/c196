@@ -1,7 +1,7 @@
 package com.taylorvories.c196.ui;
 
 public enum RecyclerContext {
-    PARENT {
+    MAIN {
         @Override
         public String toString() {
             return "Parent";
@@ -12,6 +12,13 @@ public enum RecyclerContext {
         @Override
         public String toString() {
             return "Child";
+        }
+    },
+
+    ADD {
+        @Override
+        public String toString() {
+            return "Add";
         }
     }
 }

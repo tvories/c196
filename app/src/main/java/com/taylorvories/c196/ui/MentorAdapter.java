@@ -13,14 +13,10 @@ import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-import com.taylorvories.c196.AssessmentDetailsActivity;
-import com.taylorvories.c196.AssessmentEditActivity;
 import com.taylorvories.c196.MentorDetailsActivity;
 import com.taylorvories.c196.MentorEditActivity;
 import com.taylorvories.c196.R;
-import com.taylorvories.c196.models.Assessment;
 import com.taylorvories.c196.models.Mentor;
-import com.taylorvories.c196.utilities.TextFormatting;
 
 import java.util.List;
 
@@ -56,7 +52,7 @@ public class MentorAdapter extends RecyclerView.Adapter<MentorAdapter.ViewHolder
         holder.tvEmail.setText(mentor.getEmail());
 
         switch(rContext) {
-            case PARENT:
+            case MAIN:
                 holder.mentorFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_edit));
                 holder.mentorImageBtn.setOnClickListener(v -> {
                     Intent intent = new Intent(mContext, MentorDetailsActivity.class);

@@ -61,7 +61,7 @@ public class AssessmentActivity extends AppCompatActivity {
                 assessmentData.addAll(assessmentEntities);
 
                 if(mAssessmentAdapter == null) {
-                    mAssessmentAdapter = new AssessmentAdapter(assessmentData, AssessmentActivity.this, RecyclerContext.PARENT);
+                    mAssessmentAdapter = new AssessmentAdapter(assessmentData, AssessmentActivity.this, RecyclerContext.MAIN);
                     mAssessmentRecyclerView.setAdapter(mAssessmentAdapter);
                 } else {
                     mAssessmentAdapter.notifyDataSetChanged();

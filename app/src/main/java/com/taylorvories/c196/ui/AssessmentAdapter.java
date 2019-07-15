@@ -53,7 +53,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.Vi
         holder.tvDate.setText(TextFormatting.cardDateFormat.format(assessment.getDate()));
 
         switch(rContext) {
-            case PARENT:
+            case MAIN:
                 holder.assFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_edit));
                 holder.assImageBtn.setOnClickListener(v -> {
                     Intent intent = new Intent(mContext, AssessmentDetailsActivity.class);
