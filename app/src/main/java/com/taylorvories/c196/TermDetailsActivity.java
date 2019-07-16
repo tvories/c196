@@ -1,6 +1,7 @@
 package com.taylorvories.c196;
 
 import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
@@ -123,6 +124,15 @@ public class TermDetailsActivity extends AppCompatActivity {
         builder.setNegativeButton("Existing", (dialog, id) -> {
             dialog.dismiss();
             //TODO: Write recyclerview fragment and call it here.
+            AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
+            builder2.setTitle("Pick a Course.");
+            builder2.setAdapter();
+            builder2.setItems(courseData, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+
+                }
+            });
             Toast.makeText(this, "You better write this part", Toast.LENGTH_SHORT).show();
         });
         AlertDialog dialog = builder.create();
