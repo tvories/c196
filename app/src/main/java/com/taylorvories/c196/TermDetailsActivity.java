@@ -1,10 +1,16 @@
 package com.taylorvories.c196;
 
 import android.app.AlertDialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.ArrayAdapter;
+import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -16,9 +22,11 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.Term;
 import com.taylorvories.c196.ui.CourseAdapter;
+import com.taylorvories.c196.ui.ItemDropdownMenu;
 import com.taylorvories.c196.ui.RecyclerContext;
 import com.taylorvories.c196.ui.TermAdapter;
 import com.taylorvories.c196.utilities.TextFormatting;
@@ -43,7 +51,11 @@ public class TermDetailsActivity extends AppCompatActivity {
     @BindView(R.id.rview_term_detail_course)
     RecyclerView mCourseRecyclerView;
 
+    @BindView(R.id.fab_add_course)
+    FloatingActionButton fabAddCourse;
+
     private List<Course> courseData = new ArrayList<>();
+    private List<Course> unassignedCourses = new ArrayList<>();
     private Toolbar toolbar;
     private int termId;
     private CourseAdapter mCourseAdapter;
@@ -83,11 +95,18 @@ public class TermDetailsActivity extends AppCompatActivity {
                 courseData.addAll(courseEntities);
 
                 if(mCourseAdapter == null) {
-                    mCourseAdapter = new CourseAdapter(courseData, TermDetailsActivity.this, RecyclerContext.CHILD, -1);
+                    mCourseAdapter = new CourseAdapter(courseData, TermDetailsActivity.this, RecyclerContext.CHILD);
                     mCourseRecyclerView.setAdapter(mCourseAdapter);
                 } else {
                     mCourseAdapter.notifyDataSetChanged();
                 }
+            };
+
+        // Load and observe unassigned courses to enable adding them
+        final Observer<List<Course>> unassignedCourseObserver =
+            courseEntities -> {
+                unassignedCourses.clear();
+                unassignedCourses.addAll(courseEntities);
             };
 
         Bundle extras = getIntent().getExtras();
@@ -99,6 +118,7 @@ public class TermDetailsActivity extends AppCompatActivity {
         }
 
         mViewModel.getCoursesInTerm(termId).observe(this, courseObserver);
+        mViewModel.getUnassignedCourses().observe(this, unassignedCourseObserver);
     }
 
     @OnClick(R.id.fab_edit_term)
@@ -122,20 +142,30 @@ public class TermDetailsActivity extends AppCompatActivity {
             this.startActivity(intent);
         });
         builder.setNegativeButton("Existing", (dialog, id) -> {
-            dialog.dismiss();
-            //TODO: Write recyclerview fragment and call it here.
-            AlertDialog.Builder builder2 = new AlertDialog.Builder(this);
-            builder2.setTitle("Pick a Course.");
-            builder2.setAdapter();
-            builder2.setItems(courseData, new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialogInterface, int i) {
+            // Ensure at least once unassigned course is available
+            if(unassignedCourses.size() >= 1) {
+                final ItemDropdownMenu menu = new ItemDropdownMenu(this, unassignedCourses);
+                menu.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+                menu.setWidth(getPxFromDp(200));
+                menu.setOutsideTouchable(true);
+                menu.setFocusable(true);
+                menu.showAsDropDown(fabAddCourse);
+                menu.setCourseSelectedListener((position, course) -> {
+                    menu.dismiss();
+                    course.setTermId(termId);
+                    mViewModel.overwriteCourse(course, termId);
+                    Toast.makeText(getApplicationContext(), "Item Selected: " + course.getTitle(), Toast.LENGTH_SHORT).show();
+                });
+            } else { // No unassigned courses.  Notify user.
+                Toast.makeText(getApplicationContext(), "There are no unassigned courses.  Create a new course.", Toast.LENGTH_SHORT).show();
+            }
 
-                }
-            });
-            Toast.makeText(this, "You better write this part", Toast.LENGTH_SHORT).show();
         });
         AlertDialog dialog = builder.create();
         dialog.show();
+    }
+
+    private int getPxFromDp(int dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density);
     }
 }

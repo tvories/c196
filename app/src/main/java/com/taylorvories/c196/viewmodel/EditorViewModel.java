@@ -104,6 +104,11 @@ public class EditorViewModel extends AndroidViewModel {
         mRepository.insertCourse(course);
     }
 
+    public void overwriteCourse(Course course, int termId) {
+        course.setTermId(termId);
+        mRepository.insertCourse(course);
+    }
+
     public void saveAssessment(String assessmentTitle, Date date, AssessmentType assessmentType) {
         Assessment assessment = mLiveAssessment.getValue();
 
@@ -156,9 +161,8 @@ public class EditorViewModel extends AndroidViewModel {
         return (mRepository.getAssessmentsByCourse(courseId));
     }
 
-    public List<Course> getAllCourses() {
-        LiveData<List<Course>> courses = mRepository.getAllCourses();
-        return courses.getValue();
+    public LiveData<List<Course>> getUnassignedCourses() {
+        return (mRepository.getCoursesByTerm(-1));
     }
 
     public Term getTermById(int termId) {

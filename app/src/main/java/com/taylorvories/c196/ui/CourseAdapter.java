@@ -35,13 +35,11 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     private final List<Course> mCourses;
     private final Context mContext;
     private final RecyclerContext rContext;
-    private final int termId;
 
-    public CourseAdapter(List<Course> mCourses, Context mContext, RecyclerContext rContext, int termId) {
+    public CourseAdapter(List<Course> mCourses, Context mContext, RecyclerContext rContext) {
         this.mCourses = mCourses;
         this.mContext = mContext;
         this.rContext = rContext;
-        this.termId = termId;
     }
 
     @NonNull
@@ -92,15 +90,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
                     builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
                     AlertDialog dialog = builder.create();
                     dialog.show();
-                });
-                break;
-            case ADD:
-                holder.courseFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_add));
-                holder.courseFab.setOnClickListener(v -> {
-                    if(termId != -1) {
-                        course.setTermId(termId);
-                        ((Activity)mContext).finish();
-                    }
                 });
                 break;
         }

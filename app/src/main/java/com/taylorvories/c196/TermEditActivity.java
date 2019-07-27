@@ -22,7 +22,6 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.taylorvories.c196.models.Course;
-import com.taylorvories.c196.ui.CourseAdapter;
 import com.taylorvories.c196.ui.RecyclerContext;
 import com.taylorvories.c196.utilities.TextFormatting;
 import com.taylorvories.c196.viewmodel.EditorViewModel;
@@ -108,7 +107,9 @@ public class TermEditActivity extends AppCompatActivity {
                 courseData.addAll(courseEntities);
             };
 
-        mViewModel.getCoursesInTerm(termId).observe(this, courseObserver);
+        if(termId > 0) {
+            mViewModel.getCoursesInTerm(termId).observe(this, courseObserver);
+        }
     }
 
     @Override
