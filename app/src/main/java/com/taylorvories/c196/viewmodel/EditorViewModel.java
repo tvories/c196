@@ -162,6 +162,10 @@ public class EditorViewModel extends AndroidViewModel {
         return (mRepository.getAssessmentsByCourse(courseId));
     }
 
+    public LiveData<List<Mentor>> getMentorsInCourse(int courseId) {
+        return (mRepository.getMentorsByCourse(courseId));
+    }
+
     public LiveData<List<Course>> getUnassignedCourses() {
         return (mRepository.getCoursesByTerm(-1));
     }

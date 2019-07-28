@@ -104,6 +104,10 @@ public class AppRepository {
         return mDb.assessmentDao().getAssessmentsByCourse(courseId);
     }
 
+    public LiveData<List<Mentor>> getMentorsByCourse(final int courseId) {
+        return mDb.mentorDao().getMentorsByCourse(courseId);
+    }
+
     public void insertAssessment(final Assessment assessment) {
         executor.execute(() -> mDb.assessmentDao().insertAssessment(assessment));
     }

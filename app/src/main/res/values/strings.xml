@@ -70,4 +70,5 @@
     <string name="edit_mentor">Edit Mentor</string>
     <string name="course_detail_note_label">Note</string>
     <string name="course_edit_note_hint">Edit Note</string>
+    <string name="course_detail_mentors_label">Mentors</string>
 </resources>

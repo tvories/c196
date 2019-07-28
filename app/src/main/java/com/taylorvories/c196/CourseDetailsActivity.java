@@ -15,8 +15,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.taylorvories.c196.models.Assessment;
 import com.taylorvories.c196.models.Course;
+import com.taylorvories.c196.models.Mentor;
 import com.taylorvories.c196.ui.AssessmentAdapter;
 import com.taylorvories.c196.ui.CourseAdapter;
+import com.taylorvories.c196.ui.MentorAdapter;
 import com.taylorvories.c196.ui.RecyclerContext;
 import com.taylorvories.c196.utilities.TextFormatting;
 import com.taylorvories.c196.viewmodel.EditorViewModel;
@@ -40,6 +42,9 @@ public class CourseDetailsActivity extends AppCompatActivity {
     @BindView(R.id.rview_course_detail_assessments)
     RecyclerView mAssRecyclerView;
 
+    @BindView(R.id.rview_course_detail_mentors)
+    RecyclerView mMentorsRecyclerView;
+
     @BindView(R.id.course_detail_status)
     TextView tvCourseStatus;
 
@@ -47,9 +52,11 @@ public class CourseDetailsActivity extends AppCompatActivity {
     TextView tvCourseNote;
 
     private List<Assessment> assessmentData = new ArrayList<>();
+    private List<Mentor> mentorData = new ArrayList<>();
     private Toolbar toolbar;
     private int courseId;
     private AssessmentAdapter mAssessmentAdapter;
+    private MentorAdapter mMentorAdapter;
     private EditorViewModel mViewModel;
 
     @Override
@@ -68,6 +75,10 @@ public class CourseDetailsActivity extends AppCompatActivity {
         mAssRecyclerView.setHasFixedSize(true);
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         mAssRecyclerView.setLayoutManager(layoutManager);
+
+        mMentorsRecyclerView.setHasFixedSize(true);
+        LinearLayoutManager layoutManager1 = new LinearLayoutManager(this);
+        mMentorsRecyclerView.setLayoutManager(layoutManager1);
     }
 
     private void initViewModel() {
@@ -95,7 +106,19 @@ public class CourseDetailsActivity extends AppCompatActivity {
                 }
             };
 
+        // Mentors
+        final Observer<List<Mentor>> mentorObserver =
+            mentorEntities -> {
+                mentorData.clear();
+                mentorData.addAll(mentorEntities);
 
+                if(mMentorAdapter == null) {
+                    mMentorAdapter = new MentorAdapter(mentorData, CourseDetailsActivity.this, RecyclerContext.CHILD);
+                    mMentorsRecyclerView.setAdapter(mMentorAdapter);
+                } else {
+                    mMentorAdapter.notifyDataSetChanged();
+                }
+            };
 
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
@@ -106,6 +129,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
         }
 
         mViewModel.getAssessmentsInCourse(courseId).observe(this, assessmentObserver);
+        mViewModel.getMentorsInCourse(courseId).observe(this, mentorObserver);
     }
 
     @OnClick(R.id.fab_edit_course)
