@@ -55,6 +55,9 @@ public class CourseEditActivity extends AppCompatActivity {
     @BindView(R.id.course_edit_status_dropdown)
     Spinner spCourseStatus;
 
+    @BindView(R.id.course_edit_note)
+    EditText tvNote;
+
     private EditorViewModel mViewModel;
     private boolean mNewCourse, mEditing;
     private int termId = -1;
@@ -98,6 +101,7 @@ public class CourseEditActivity extends AppCompatActivity {
                 tvCourseTitle.setText(course.getTitle());
                 tvCourseStartDate.setText(TextFormatting.fullDateFormat.format(course.getStartDate()));
                 tvCourseEndDate.setText(TextFormatting.fullDateFormat.format(course.getAnticipatedEndDate()));
+                tvNote.setText(course.getNote());
                 int position = getSpinnerPosition(course.getCourseStatus());
                 spCourseStatus.setSelection(position);
             }
@@ -152,7 +156,7 @@ public class CourseEditActivity extends AppCompatActivity {
         try {
             Date startDate = TextFormatting.fullDateFormat.parse(tvCourseStartDate.getText().toString());
             Date endDate = TextFormatting.fullDateFormat.parse(tvCourseEndDate.getText().toString());
-            mViewModel.saveCourse(tvCourseTitle.getText().toString(), startDate, endDate, getSpinnerValue(), termId);
+            mViewModel.saveCourse(tvCourseTitle.getText().toString(), startDate, endDate, getSpinnerValue(), termId, tvNote.getText().toString());
             Log.v("Saved Course", tvCourseTitle.toString());
         } catch (ParseException e) {
             Log.v("Exception", e.getLocalizedMessage());

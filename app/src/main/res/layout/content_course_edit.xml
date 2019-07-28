@@ -95,6 +95,17 @@
             app:layout_constraintEnd_toEndOf="parent"
             android:text="@string/course_edit_status_dropdown"/>
 
+        <EditText
+            android:id="@+id/course_edit_note"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/text_margin"
+            android:hint="@string/course_edit_note_hint"
+            android:inputType="textCapSentences"
+            app:layout_constraintTop_toBottomOf="@+id/course_edit_status_dropdown"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"/>
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.core.widget.NestedScrollView>

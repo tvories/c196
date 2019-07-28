@@ -17,6 +17,8 @@ public class Course {
     private Date startDate;
     private Date anticipatedEndDate;
     private CourseStatus courseStatus;
+    private String note;
+
     private int termId;
 
     @Ignore
@@ -25,13 +27,14 @@ public class Course {
     }
 
     @Ignore
-    public Course(int id, String title, Date startDate, Date anticipatedEndDate, CourseStatus courseStatus, int termId) {
+    public Course(int id, String title, Date startDate, Date anticipatedEndDate, CourseStatus courseStatus, int termId, String note) {
         this.id = id;
         this.title = title;
         this.startDate = startDate;
         this.anticipatedEndDate = anticipatedEndDate;
         this.courseStatus = courseStatus;
         this.termId = termId;
+        this.note = note;
     }
 
     @Ignore
@@ -92,6 +95,14 @@ public class Course {
 
     public int getTermId() {
         return termId;
+    }
+
+    public String getNote() {
+        return note;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
     }
 
     public void setTermId(int termId) {

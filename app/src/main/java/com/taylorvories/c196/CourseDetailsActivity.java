@@ -43,6 +43,9 @@ public class CourseDetailsActivity extends AppCompatActivity {
     @BindView(R.id.course_detail_status)
     TextView tvCourseStatus;
 
+    @BindView(R.id.course_detail_note)
+    TextView tvCourseNote;
+
     private List<Assessment> assessmentData = new ArrayList<>();
     private Toolbar toolbar;
     private int courseId;
@@ -74,6 +77,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
             tvCourseStartDate.setText(TextFormatting.fullDateFormat.format(course.getStartDate()));
             tvCourseEndDate.setText(TextFormatting.fullDateFormat.format(course.getAnticipatedEndDate()));
             tvCourseStatus.setText(course.getCourseStatus().toString());
+            tvCourseNote.setText(course.getNote());
             toolbar.setTitle(course.getTitle());
         });
 

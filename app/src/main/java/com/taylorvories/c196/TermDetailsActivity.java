@@ -174,8 +174,8 @@ public class TermDetailsActivity extends AppCompatActivity implements CourseAdap
 //                notifyItemRemoved(position);
 //                notifyItemRangeChanged(position, mCourses.size());
         });
-
-        mViewModel.overwriteCourse(course, -1);
-        mCourseAdapter.notifyDataSetChanged();
+        builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }

@@ -86,7 +86,7 @@ public class EditorViewModel extends AndroidViewModel {
         mRepository.insertTerm(term);
     }
 
-    public void saveCourse(String courseTitle, Date startDate, Date endDate, CourseStatus courseStatus, int termId) {
+    public void saveCourse(String courseTitle, Date startDate, Date endDate, CourseStatus courseStatus, int termId, String note) {
         Course course = mLiveCourse.getValue();
 
         if(course == null) {
@@ -100,6 +100,7 @@ public class EditorViewModel extends AndroidViewModel {
             course.setAnticipatedEndDate(endDate);
             course.setCourseStatus(courseStatus);
             course.setTermId(termId);
+            course.setNote(note);
         }
         mRepository.insertCourse(course);
     }

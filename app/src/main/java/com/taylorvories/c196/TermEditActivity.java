@@ -59,7 +59,6 @@ public class TermEditActivity extends AppCompatActivity {
     private EditorViewModel mViewModel;
     private boolean mNewTerm, mEditing;
     private List<Course> courseData = new ArrayList<>();
-    private LiveData<List<Course>> coursesInTerm;
     int termId;
 
     @Override
@@ -107,9 +106,7 @@ public class TermEditActivity extends AppCompatActivity {
                 courseData.addAll(courseEntities);
             };
 
-        if(termId > 0) {
-            mViewModel.getCoursesInTerm(termId).observe(this, courseObserver);
-        }
+        mViewModel.getCoursesInTerm(termId).observe(this, courseObserver);
     }
 
     @Override
