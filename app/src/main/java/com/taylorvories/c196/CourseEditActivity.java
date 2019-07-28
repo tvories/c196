@@ -62,7 +62,6 @@ public class CourseEditActivity extends AppCompatActivity {
     private boolean mNewCourse, mEditing;
     private int termId = -1;
     private ArrayAdapter<CourseStatus> courseStatusAdapter;
-    private Executor executor = Executors.newSingleThreadExecutor();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

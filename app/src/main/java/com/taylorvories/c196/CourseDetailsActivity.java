@@ -1,8 +1,11 @@
 package com.taylorvories.c196;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.WindowManager;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,11 +16,14 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.taylorvories.c196.models.Assessment;
 import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.Mentor;
 import com.taylorvories.c196.ui.AssessmentAdapter;
+import com.taylorvories.c196.ui.AssessmentDropdownMenu;
 import com.taylorvories.c196.ui.CourseAdapter;
+import com.taylorvories.c196.ui.CourseDropdownMenu;
 import com.taylorvories.c196.ui.MentorAdapter;
 import com.taylorvories.c196.ui.RecyclerContext;
 import com.taylorvories.c196.utilities.TextFormatting;
@@ -31,6 +37,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.taylorvories.c196.utilities.Constants.COURSE_ID_KEY;
+import static com.taylorvories.c196.utilities.Constants.TERM_ID_KEY;
 
 public class CourseDetailsActivity extends AppCompatActivity {
     @BindView(R.id.course_detail_start)
@@ -51,8 +58,16 @@ public class CourseDetailsActivity extends AppCompatActivity {
     @BindView(R.id.course_detail_note)
     TextView tvCourseNote;
 
+    @BindView(R.id.fab_add_assessment)
+    FloatingActionButton fabAddAssessment;
+
+    @BindView(R.id.fab_add_mentor)
+    FloatingActionButton fabAddMentor;
+
     private List<Assessment> assessmentData = new ArrayList<>();
     private List<Mentor> mentorData = new ArrayList<>();
+    private List<Assessment> unassignedAssessments = new ArrayList<>();
+    private List<Mentor> unassignedMentors = new ArrayList<>();
     private Toolbar toolbar;
     private int courseId;
     private AssessmentAdapter mAssessmentAdapter;
@@ -120,6 +135,20 @@ public class CourseDetailsActivity extends AppCompatActivity {
                 }
             };
 
+        // Load and observe unassigned assessments to enable adding them
+        final Observer<List<Assessment>> unassignedAssessmentObserver =
+            assessmentEntities -> {
+                unassignedAssessments.clear();
+                unassignedAssessments.addAll(assessmentEntities);
+            };
+
+        // Load and observe unassigned mentors to enable adding them
+        final Observer<List<Mentor>> unassignedMentorObserver =
+            mentorEntities -> {
+                unassignedMentors.clear();
+                unassignedMentors.addAll(mentorEntities);
+            };
+
         Bundle extras = getIntent().getExtras();
         if(extras != null) {
             courseId = extras.getInt(COURSE_ID_KEY);
@@ -130,6 +159,8 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
         mViewModel.getAssessmentsInCourse(courseId).observe(this, assessmentObserver);
         mViewModel.getMentorsInCourse(courseId).observe(this, mentorObserver);
+        mViewModel.getUnassignedAssessments().observe(this, unassignedAssessmentObserver);
+        mViewModel.getUnassignedMentors().observe(this, unassignedMentorObserver);
     }
 
     @OnClick(R.id.fab_edit_course)
@@ -138,5 +169,43 @@ public class CourseDetailsActivity extends AppCompatActivity {
         intent.putExtra(COURSE_ID_KEY, courseId);
         this.startActivity(intent);
         finish();
+    }
+
+    @OnClick(R.id.fab_add_assessment)
+    public void assessmentAddButton() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Add new or existing Assessment?");
+        builder.setMessage("Would you like to add an existing assessment to this course or create a new assessment?");
+        builder.setIcon(R.drawable.ic_add);
+        builder.setPositiveButton("New", (dialog, id) -> {
+            dialog.dismiss();
+            Intent intent = new Intent(this, AssessmentEditActivity.class);
+            intent.putExtra(COURSE_ID_KEY, courseId);
+            this.startActivity(intent);
+        });
+        builder.setNegativeButton("Existing", (dialog, id) -> {
+            // Ensure at least once unassigned assessment is available
+            if(unassignedAssessments.size() >= 1) {
+                final AssessmentDropdownMenu menu = new AssessmentDropdownMenu(this, unassignedAssessments);
+                menu.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+                menu.setWidth(getPxFromDp(200));
+                menu.setOutsideTouchable(true);
+                menu.setFocusable(true);
+                menu.showAsDropDown(fabAddAssessment);
+                menu.setAssessmentSelectedListener((position, assessment) -> {
+                    menu.dismiss();
+                    assessment.setCourseId(courseId);
+                    mViewModel.overwriteAssessment(assessment, courseId);
+                });
+            } else { // No unassigned courses.  Notify user.
+                Toast.makeText(getApplicationContext(), "There are no unassigned assessments.  Create a new assessment.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    private int getPxFromDp(int dp) {
+        return (int) (dp * getResources().getDisplayMetrics().density);
     }
 }

@@ -110,18 +110,24 @@ public class EditorViewModel extends AndroidViewModel {
         mRepository.insertCourse(course);
     }
 
-    public void saveAssessment(String assessmentTitle, Date date, AssessmentType assessmentType) {
+    public void overwriteAssessment(Assessment assessment, int courseId) {
+        assessment.setCourseId(courseId);
+        mRepository.insertAssessment(assessment);
+    }
+
+    public void saveAssessment(String assessmentTitle, Date date, AssessmentType assessmentType, int courseId) {
         Assessment assessment = mLiveAssessment.getValue();
 
         if(assessment == null) {
             if(TextUtils.isEmpty(assessmentTitle.trim())) {
                 return;
             }
-            assessment = new Assessment(assessmentTitle.trim(), date, assessmentType);
+            assessment = new Assessment(assessmentTitle.trim(), date, assessmentType, courseId);
         } else {
             assessment.setTitle(assessmentTitle.trim());
             assessment.setDate(date);
             assessment.setAssessmentType(assessmentType);
+            assessment.setCourseId(courseId);
         }
         mRepository.insertAssessment(assessment);
     }
@@ -168,6 +174,14 @@ public class EditorViewModel extends AndroidViewModel {
 
     public LiveData<List<Course>> getUnassignedCourses() {
         return (mRepository.getCoursesByTerm(-1));
+    }
+
+    public LiveData<List<Assessment>> getUnassignedAssessments() {
+        return (mRepository.getAssessmentsByCourse(-1));
+    }
+
+    public LiveData<List<Mentor>> getUnassignedMentors() {
+        return (mRepository.getMentorsByCourse(-1));
     }
 
     public Term getTermById(int termId) {

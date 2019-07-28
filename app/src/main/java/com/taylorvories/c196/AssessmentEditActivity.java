@@ -28,6 +28,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 
 import static com.taylorvories.c196.utilities.Constants.ASSESSMENT_ID_KEY;
+import static com.taylorvories.c196.utilities.Constants.COURSE_ID_KEY;
 import static com.taylorvories.c196.utilities.Constants.EDITING_KEY;
 
 public class AssessmentEditActivity extends AppCompatActivity {
@@ -42,6 +43,7 @@ public class AssessmentEditActivity extends AppCompatActivity {
 
     private EditorViewModel mViewModel;
     private boolean mNewAssessment, mEditing;
+    private int courseId = -1;
     private ArrayAdapter<AssessmentType> assessmentTypeAdapter;
 
     @Override
@@ -89,6 +91,10 @@ public class AssessmentEditActivity extends AppCompatActivity {
         if(extras == null) {
             setTitle(getString(R.string.new_assessment));
             mNewAssessment = true;
+        } else if (extras.containsKey(COURSE_ID_KEY)) {
+            courseId = extras.getInt(COURSE_ID_KEY);
+            Log.v("DEBUG", "Extras course ID: " + courseId);
+            setTitle(getString(R.string.new_assessment));
         } else {
             setTitle(R.string.edit_assessment);
             int assessmentId = extras.getInt(ASSESSMENT_ID_KEY);
@@ -129,7 +135,7 @@ public class AssessmentEditActivity extends AppCompatActivity {
     public void saveAndReturn() {
         try {
             Date date = TextFormatting.fullDateFormat.parse(tvAssessmentDate.getText().toString());
-            mViewModel.saveAssessment(tvAssessmentTitle.getText().toString(), date, getSpinnerValue());
+            mViewModel.saveAssessment(tvAssessmentTitle.getText().toString(), date, getSpinnerValue(), courseId);
             Log.v("Saved Assessment", tvAssessmentTitle.toString());
         } catch (ParseException e) {
             Log.v("Exception", e.getLocalizedMessage());
