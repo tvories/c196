@@ -31,11 +31,13 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.Vi
     private final List<Assessment> mAssessments;
     private final Context mContext;
     private final RecyclerContext rContext;
+    private AssessmentSelectedListener assessmentSelectedListener;
 
-    public AssessmentAdapter(List<Assessment> mAssessments, Context mContext, RecyclerContext rContext) {
+    public AssessmentAdapter(List<Assessment> mAssessments, Context mContext, RecyclerContext rContext, AssessmentSelectedListener assessmentSelectedListener) {
         this.mAssessments = mAssessments;
         this.mContext = mContext;
         this.rContext = rContext;
+        this.assessmentSelectedListener = assessmentSelectedListener;
     }
 
     @NonNull
@@ -43,7 +45,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.Vi
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.assessment_list_cardview, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, assessmentSelectedListener);
     }
 
     @Override
@@ -69,6 +71,11 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.Vi
                 break;
             case CHILD:
                 holder.assFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_delete));
+                holder.assFab.setOnClickListener(v -> {
+                    if(assessmentSelectedListener != null) {
+                        assessmentSelectedListener.onAssessmentSelected(position, assessment);
+                    }
+                });
                 break;
         }
     }
@@ -78,7 +85,7 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.Vi
         return mAssessments.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.card_ass_title)
         TextView tvTitle;
         @BindView(R.id.card_ass_fab)
@@ -87,10 +94,23 @@ public class AssessmentAdapter extends RecyclerView.Adapter<AssessmentAdapter.Vi
         TextView tvDate;
         @BindView(R.id.btn_ass_details)
         ImageButton assImageBtn;
+        AssessmentSelectedListener assessmentSelectedListener;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, AssessmentSelectedListener assessmentSelectedListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            this.assessmentSelectedListener = assessmentSelectedListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            assessmentSelectedListener.onAssessmentSelected(getAdapterPosition(), mAssessments.get(getAdapterPosition()));
+        }
+    }
+
+    public interface AssessmentSelectedListener {
+        void onAssessmentSelected(int position, Assessment assessment);
     }
 }

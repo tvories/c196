@@ -44,10 +44,6 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         this.courseSelectedListener = courseSelectedListener;
     }
 
-    public void setCourseSelectedListener(CourseAdapter.CourseSelectedListener courseSelectedListener) {
-        this.courseSelectedListener = courseSelectedListener;
-    }
-
     @NonNull
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {

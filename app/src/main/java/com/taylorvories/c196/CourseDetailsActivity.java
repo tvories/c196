@@ -39,7 +39,7 @@ import butterknife.OnClick;
 import static com.taylorvories.c196.utilities.Constants.COURSE_ID_KEY;
 import static com.taylorvories.c196.utilities.Constants.TERM_ID_KEY;
 
-public class CourseDetailsActivity extends AppCompatActivity {
+public class CourseDetailsActivity extends AppCompatActivity implements AssessmentAdapter.AssessmentSelectedListener {
     @BindView(R.id.course_detail_start)
     TextView tvCourseStartDate;
 
@@ -114,7 +114,7 @@ public class CourseDetailsActivity extends AppCompatActivity {
                 assessmentData.addAll(assessmentEntities);
 
                 if(mAssessmentAdapter == null) {
-                    mAssessmentAdapter = new AssessmentAdapter(assessmentData, CourseDetailsActivity.this, RecyclerContext.CHILD);
+                    mAssessmentAdapter = new AssessmentAdapter(assessmentData, CourseDetailsActivity.this, RecyclerContext.CHILD, this);
                     mAssRecyclerView.setAdapter(mAssessmentAdapter);
                 } else {
                     mAssessmentAdapter.notifyDataSetChanged();
@@ -207,5 +207,21 @@ public class CourseDetailsActivity extends AppCompatActivity {
 
     private int getPxFromDp(int dp) {
         return (int) (dp * getResources().getDisplayMetrics().density);
+    }
+
+    @Override
+    public void onAssessmentSelected(int position, Assessment assessment) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Are you sure you want to remove this assessment?");
+        builder.setMessage("This will not delete the assessment, only remove it from this course.");
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        builder.setPositiveButton("Continue", (dialog, id) -> {
+            dialog.dismiss();
+            mViewModel.overwriteAssessment(assessment, -1);
+            mAssessmentAdapter.notifyDataSetChanged();
+        });
+        builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+        AlertDialog dialog = builder.create();
+        dialog.show();
     }
 }
