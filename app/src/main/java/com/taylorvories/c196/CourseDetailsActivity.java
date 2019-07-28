@@ -40,7 +40,7 @@ import butterknife.OnClick;
 import static com.taylorvories.c196.utilities.Constants.COURSE_ID_KEY;
 import static com.taylorvories.c196.utilities.Constants.TERM_ID_KEY;
 
-public class CourseDetailsActivity extends AppCompatActivity implements AssessmentAdapter.AssessmentSelectedListener {
+public class CourseDetailsActivity extends AppCompatActivity implements AssessmentAdapter.AssessmentSelectedListener, MentorAdapter.MentorSelectedListener {
     @BindView(R.id.course_detail_start)
     TextView tvCourseStartDate;
 
@@ -129,7 +129,7 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
                 mentorData.addAll(mentorEntities);
 
                 if(mMentorAdapter == null) {
-                    mMentorAdapter = new MentorAdapter(mentorData, CourseDetailsActivity.this, RecyclerContext.CHILD);
+                    mMentorAdapter = new MentorAdapter(mentorData, CourseDetailsActivity.this, RecyclerContext.CHILD, this);
                     mMentorsRecyclerView.setAdapter(mMentorAdapter);
                 } else {
                     mMentorAdapter.notifyDataSetChanged();
@@ -254,6 +254,22 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
             dialog.dismiss();
             mViewModel.overwriteAssessment(assessment, -1);
             mAssessmentAdapter.notifyDataSetChanged();
+        });
+        builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @Override
+    public void onMentorSelected(int position, Mentor mentor) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Are you sure you want to remove this mentor?");
+        builder.setMessage("This will not delete the mentor, only remove them from this course.");
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        builder.setPositiveButton("Continue", (dialog, id) -> {
+            dialog.dismiss();
+            mViewModel.overwriteMentor(mentor, -1);
+            mMentorAdapter.notifyDataSetChanged();
         });
         builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
         AlertDialog dialog = builder.create();

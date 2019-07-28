@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class MentorActivity extends AppCompatActivity {
+public class MentorActivity extends AppCompatActivity implements MentorAdapter.MentorSelectedListener {
     @BindView(R.id.mentor_recycler_view)
     RecyclerView mMentorRecyclerView;
 
@@ -61,7 +61,7 @@ public class MentorActivity extends AppCompatActivity {
                 mentorData.addAll(mentorEntities);
 
                 if(mMentorAdapter == null) {
-                    mMentorAdapter = new MentorAdapter(mentorData, MentorActivity.this, RecyclerContext.MAIN);
+                    mMentorAdapter = new MentorAdapter(mentorData, MentorActivity.this, RecyclerContext.MAIN, this);
                     mMentorRecyclerView.setAdapter(mMentorAdapter);
                 } else {
                     mMentorAdapter.notifyDataSetChanged();
@@ -69,5 +69,10 @@ public class MentorActivity extends AppCompatActivity {
             };
         mMentorViewModel = ViewModelProviders.of(this).get(MentorViewModel.class);
         mMentorViewModel.mMentors.observe(this, mentorObserver);
+    }
+
+    @Override
+    public void onMentorSelected(int position, Mentor mentor) {
+
     }
 }

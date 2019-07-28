@@ -30,11 +30,13 @@ public class MentorAdapter extends RecyclerView.Adapter<MentorAdapter.ViewHolder
     private final List<Mentor> mMentors;
     private final Context mContext;
     private final RecyclerContext rContext;
+    private MentorSelectedListener mentorSelectedListener;
 
-    public MentorAdapter(List<Mentor> mMentors, Context mContext, RecyclerContext rContext) {
+    public MentorAdapter(List<Mentor> mMentors, Context mContext, RecyclerContext rContext, MentorSelectedListener mentorSelectedListener) {
         this.mMentors = mMentors;
         this.mContext = mContext;
         this.rContext = rContext;
+        this.mentorSelectedListener = mentorSelectedListener;
     }
 
     @NonNull
@@ -42,7 +44,7 @@ public class MentorAdapter extends RecyclerView.Adapter<MentorAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.mentor_list_cardview, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, mentorSelectedListener);
     }
 
     @Override
@@ -68,6 +70,11 @@ public class MentorAdapter extends RecyclerView.Adapter<MentorAdapter.ViewHolder
                 break;
             case CHILD:
                 holder.mentorFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_delete));
+                holder.mentorFab.setOnClickListener(v -> {
+                    if(mentorSelectedListener != null) {
+                        mentorSelectedListener.onMentorSelected(position, mentor);
+                    }
+                });
                 break;
         }
     }
@@ -77,7 +84,7 @@ public class MentorAdapter extends RecyclerView.Adapter<MentorAdapter.ViewHolder
         return mMentors.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.card_mentor_name)
         TextView tvName;
         @BindView(R.id.card_mentor_fab)
@@ -86,10 +93,23 @@ public class MentorAdapter extends RecyclerView.Adapter<MentorAdapter.ViewHolder
         TextView tvEmail;
         @BindView(R.id.btn_mentor_details)
         ImageButton mentorImageBtn;
+        MentorSelectedListener mentorSelectedListener;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, MentorSelectedListener mentorSelectedListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            this.mentorSelectedListener = mentorSelectedListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            mentorSelectedListener.onMentorSelected(getAdapterPosition(), mMentors.get(getAdapterPosition()));
+        }
+    }
+
+    public interface MentorSelectedListener {
+        void onMentorSelected(int position, Mentor mentor);
     }
 }
