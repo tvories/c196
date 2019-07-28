@@ -25,6 +25,7 @@ import com.taylorvories.c196.ui.AssessmentDropdownMenu;
 import com.taylorvories.c196.ui.CourseAdapter;
 import com.taylorvories.c196.ui.CourseDropdownMenu;
 import com.taylorvories.c196.ui.MentorAdapter;
+import com.taylorvories.c196.ui.MentorDropdownMenu;
 import com.taylorvories.c196.ui.RecyclerContext;
 import com.taylorvories.c196.utilities.TextFormatting;
 import com.taylorvories.c196.viewmodel.EditorViewModel;
@@ -199,6 +200,40 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
                 });
             } else { // No unassigned courses.  Notify user.
                 Toast.makeText(getApplicationContext(), "There are no unassigned assessments.  Create a new assessment.", Toast.LENGTH_SHORT).show();
+            }
+        });
+        AlertDialog dialog = builder.create();
+        dialog.show();
+    }
+
+    @OnClick(R.id.fab_add_mentor)
+    public void mentorAddButton() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Add new or existing Mentor?");
+        builder.setMessage("Would you like to add an existing mentor to this course or add a new mentor?");
+        builder.setIcon(R.drawable.ic_add);
+        builder.setPositiveButton("New", (dialog, id) -> {
+            dialog.dismiss();
+            Intent intent = new Intent(this, MentorEditActivity.class);
+            intent.putExtra(COURSE_ID_KEY, courseId);
+            this.startActivity(intent);
+        });
+        builder.setNegativeButton("Existing", (dialog, id) -> {
+            // Ensure at least once unassigned mentor is available
+            if(unassignedMentors.size() >= 1) {
+                final MentorDropdownMenu menu = new MentorDropdownMenu(this, unassignedMentors);
+                menu.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
+                menu.setWidth(getPxFromDp(200));
+                menu.setOutsideTouchable(true);
+                menu.setFocusable(true);
+                menu.showAsDropDown(fabAddMentor);
+                menu.setMentorSelectedListener((position, mentor) -> {
+                    menu.dismiss();
+                    mentor.setCourseId(courseId);
+                    mViewModel.overwriteMentor(mentor, courseId);
+                });
+            } else { // No unassigned courses.  Notify user.
+                Toast.makeText(getApplicationContext(), "There are no unassigned mentors.  Create a new mentor.", Toast.LENGTH_SHORT).show();
             }
         });
         AlertDialog dialog = builder.create();

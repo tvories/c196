@@ -23,6 +23,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.taylorvories.c196.utilities.Constants.COURSE_ID_KEY;
 import static com.taylorvories.c196.utilities.Constants.EDITING_KEY;
 import static com.taylorvories.c196.utilities.Constants.MENTOR_ID_KEY;
 
@@ -38,6 +39,7 @@ public class MentorEditActivity extends AppCompatActivity {
 
     private EditorViewModel mViewModel;
     private boolean mNewMentor, mEditing;
+    private int courseId = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -73,6 +75,9 @@ public class MentorEditActivity extends AppCompatActivity {
         if(extras == null) {
             setTitle(getString(R.string.new_mentor));
             mNewMentor = true;
+        } else if (extras.containsKey(COURSE_ID_KEY)) {
+            courseId = extras.getInt(COURSE_ID_KEY);
+            setTitle(getString(R.string.new_mentor));
         } else {
             setTitle(getString(R.string.edit_mentor));
             int mentorId = extras.getInt(MENTOR_ID_KEY);
@@ -107,7 +112,7 @@ public class MentorEditActivity extends AppCompatActivity {
     }
 
     public void saveAndReturn() {
-        mViewModel.saveMentor(tvMentorName.getText().toString(), tvMentorEmail.getText().toString(), tvMentorPhone.getText().toString());
+        mViewModel.saveMentor(tvMentorName.getText().toString(), tvMentorEmail.getText().toString(), tvMentorPhone.getText().toString(), courseId);
         finish();
     }
 

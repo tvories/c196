@@ -115,6 +115,11 @@ public class EditorViewModel extends AndroidViewModel {
         mRepository.insertAssessment(assessment);
     }
 
+    public void overwriteMentor(Mentor mentor, int courseId) {
+        mentor.setCourseId(courseId);
+        mRepository.insertMentor(mentor);
+    }
+
     public void saveAssessment(String assessmentTitle, Date date, AssessmentType assessmentType, int courseId) {
         Assessment assessment = mLiveAssessment.getValue();
 
@@ -132,18 +137,19 @@ public class EditorViewModel extends AndroidViewModel {
         mRepository.insertAssessment(assessment);
     }
 
-    public void saveMentor(String name, String email, String phone) {
+    public void saveMentor(String name, String email, String phone, int courseId) {
         Mentor mentor = mLiveMentor.getValue();
 
         if(mentor == null) {
             if(TextUtils.isEmpty(name.trim())) {
                 return;
             }
-            mentor = new Mentor(name, email, phone);
+            mentor = new Mentor(name, email, phone, courseId);
         } else {
             mentor.setName(name);
             mentor.setEmail(email);
             mentor.setPhone(phone);
+            mentor.setCourseId(courseId);
         }
         mRepository.insertMentor(mentor);
     }
