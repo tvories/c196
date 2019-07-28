@@ -36,10 +36,7 @@ public class CoursePopupAdapter extends RecyclerView.Adapter<CoursePopupAdapter.
     @Override
     public void onBindViewHolder(@NonNull CourseViewHolder holder, final int position) {
         final Course course = mCourses.get(position);
-        //TODO: Set icon
-        // holder.ivIcon.setImageResource(course.iconRes);
         holder.tvCourseTitle.setText(course.getTitle());
-
         holder.itemView.setOnClickListener(view -> {
             if(courseSelectedListener != null){
                 courseSelectedListener.onCourseSelected(position, course);

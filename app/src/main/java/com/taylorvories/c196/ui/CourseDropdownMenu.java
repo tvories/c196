@@ -14,13 +14,13 @@ import com.taylorvories.c196.models.Course;
 
 import java.util.List;
 
-public class ItemDropdownMenu extends PopupWindow {
+public class CourseDropdownMenu extends PopupWindow {
     private Context mContext;
     private List<Course> mCourses;
     private RecyclerView rvPopup;
     private CoursePopupAdapter courseAdapter;
 
-    public ItemDropdownMenu(Context mContext, List<Course> mCourses) {
+    public CourseDropdownMenu(Context mContext, List<Course> mCourses) {
         super(mContext);
         this.mContext = mContext;
         this.mCourses = mCourses;

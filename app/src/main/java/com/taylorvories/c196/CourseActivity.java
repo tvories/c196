@@ -22,7 +22,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class CourseActivity extends AppCompatActivity {
+public class CourseActivity extends AppCompatActivity implements CourseAdapter.CourseSelectedListener {
     @BindView(R.id.course_recycler_view)
     RecyclerView mCourseRecyclerView;
 
@@ -61,7 +61,7 @@ public class CourseActivity extends AppCompatActivity {
                 courseData.addAll(courseEntities);
 
                 if(mCourseAdapter == null) {
-                    mCourseAdapter = new CourseAdapter(courseData, CourseActivity.this, RecyclerContext.MAIN);
+                    mCourseAdapter = new CourseAdapter(courseData, CourseActivity.this, RecyclerContext.MAIN, this);
                     mCourseRecyclerView.setAdapter(mCourseAdapter);
                 } else {
                     mCourseAdapter.notifyDataSetChanged();
@@ -69,5 +69,10 @@ public class CourseActivity extends AppCompatActivity {
             };
         mCourseViewModel = ViewModelProviders.of(this).get(CourseViewModel.class);
         mCourseViewModel.mCourses.observe(this, courseObserver);
+    }
+
+    @Override
+    public void onCourseSelected(int position, Course course) {
+
     }
 }

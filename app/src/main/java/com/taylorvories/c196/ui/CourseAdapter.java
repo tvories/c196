@@ -35,11 +35,17 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     private final List<Course> mCourses;
     private final Context mContext;
     private final RecyclerContext rContext;
+    private CourseSelectedListener courseSelectedListener;
 
-    public CourseAdapter(List<Course> mCourses, Context mContext, RecyclerContext rContext) {
+    public CourseAdapter(List<Course> mCourses, Context mContext, RecyclerContext rContext, CourseSelectedListener courseSelectedListener) {
         this.mCourses = mCourses;
         this.mContext = mContext;
         this.rContext = rContext;
+        this.courseSelectedListener = courseSelectedListener;
+    }
+
+    public void setCourseSelectedListener(CourseAdapter.CourseSelectedListener courseSelectedListener) {
+        this.courseSelectedListener = courseSelectedListener;
     }
 
     @NonNull
@@ -47,7 +53,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
         View view = inflater.inflate(R.layout.course_list_cardview, parent, false);
-        return new ViewHolder(view);
+        return new ViewHolder(view, courseSelectedListener);
     }
 
     @Override
@@ -76,20 +82,23 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
             case CHILD:
                 holder.courseFab.setImageDrawable(ContextCompat.getDrawable(mContext, R.drawable.ic_delete));
                 holder.courseFab.setOnClickListener(v -> {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-                    builder.setTitle("Are you sure you want to remove this course?");
-                    builder.setMessage("This will not delete the course, only remove it from this term.");
-                    builder.setIcon(android.R.drawable.ic_dialog_alert);
-                    builder.setPositiveButton("Continue", (dialog, id) -> {
-                        dialog.dismiss();
-                        course.setTermId(-1);
-                        mCourses.remove(position);
-                        notifyItemRemoved(position);
-                        notifyItemRangeChanged(position, mCourses.size());
-                    });
-                    builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
-                    AlertDialog dialog = builder.create();
-                    dialog.show();
+                    if(courseSelectedListener != null){
+                        courseSelectedListener.onCourseSelected(position, course);
+                    }
+//                    AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+//                    builder.setTitle("Are you sure you want to remove this course?");
+//                    builder.setMessage("This will not delete the course, only remove it from this term.");
+//                    builder.setIcon(android.R.drawable.ic_dialog_alert);
+//                    builder.setPositiveButton("Continue", (dialog, id) -> {
+//                        dialog.dismiss();
+//                        course.setTermId(-1);
+//                        mCourses.remove(position);
+//                        notifyItemRemoved(position);
+//                        notifyItemRangeChanged(position, mCourses.size());
+//                    });
+//                    builder.setNegativeButton("Cancel", (dialog, id) -> dialog.dismiss());
+//                    AlertDialog dialog = builder.create();
+//                    dialog.show();
                 });
                 break;
         }
@@ -100,7 +109,7 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         return mCourses.size();
     }
 
-    public class ViewHolder extends RecyclerView.ViewHolder {
+    public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         @BindView(R.id.card_course_title)
         TextView tvTitle;
         @BindView(R.id.card_course_fab)
@@ -109,10 +118,23 @@ public class CourseAdapter extends RecyclerView.Adapter<CourseAdapter.ViewHolder
         TextView tvDates;
         @BindView(R.id.btn_course_details)
         ImageButton courseImageBtn;
+        CourseSelectedListener courseSelectedListener;
 
-        public ViewHolder(View itemView) {
+        public ViewHolder(View itemView, CourseSelectedListener courseSelectedListener) {
             super(itemView);
             ButterKnife.bind(this, itemView);
+            this.courseSelectedListener = courseSelectedListener;
+
+            itemView.setOnClickListener(this);
         }
+
+        @Override
+        public void onClick(View v) {
+            courseSelectedListener.onCourseSelected(getAdapterPosition(), mCourses.get(getAdapterPosition()));
+        }
+    }
+
+    public interface CourseSelectedListener {
+        void onCourseSelected(int position, Course course);
     }
 }

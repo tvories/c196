@@ -1,16 +1,9 @@
 package com.taylorvories.c196;
 
 import android.app.AlertDialog;
-import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.ArrayAdapter;
-import android.widget.ListAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -24,11 +17,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.taylorvories.c196.models.Course;
-import com.taylorvories.c196.models.Term;
 import com.taylorvories.c196.ui.CourseAdapter;
-import com.taylorvories.c196.ui.ItemDropdownMenu;
+import com.taylorvories.c196.ui.CourseDropdownMenu;
+import com.taylorvories.c196.ui.CoursePopupAdapter;
 import com.taylorvories.c196.ui.RecyclerContext;
-import com.taylorvories.c196.ui.TermAdapter;
 import com.taylorvories.c196.utilities.TextFormatting;
 import com.taylorvories.c196.viewmodel.EditorViewModel;
 
@@ -41,7 +33,7 @@ import butterknife.OnClick;
 
 import static com.taylorvories.c196.utilities.Constants.TERM_ID_KEY;
 
-public class TermDetailsActivity extends AppCompatActivity {
+public class TermDetailsActivity extends AppCompatActivity implements CourseAdapter.CourseSelectedListener {
     @BindView(R.id.term_detail_start)
     TextView tvTermStartDate;
 
@@ -95,7 +87,7 @@ public class TermDetailsActivity extends AppCompatActivity {
                 courseData.addAll(courseEntities);
 
                 if(mCourseAdapter == null) {
-                    mCourseAdapter = new CourseAdapter(courseData, TermDetailsActivity.this, RecyclerContext.CHILD);
+                    mCourseAdapter = new CourseAdapter(courseData, TermDetailsActivity.this, RecyclerContext.CHILD, this);
                     mCourseRecyclerView.setAdapter(mCourseAdapter);
                 } else {
                     mCourseAdapter.notifyDataSetChanged();
@@ -144,7 +136,7 @@ public class TermDetailsActivity extends AppCompatActivity {
         builder.setNegativeButton("Existing", (dialog, id) -> {
             // Ensure at least once unassigned course is available
             if(unassignedCourses.size() >= 1) {
-                final ItemDropdownMenu menu = new ItemDropdownMenu(this, unassignedCourses);
+                final CourseDropdownMenu menu = new CourseDropdownMenu(this, unassignedCourses);
                 menu.setHeight(WindowManager.LayoutParams.WRAP_CONTENT);
                 menu.setWidth(getPxFromDp(200));
                 menu.setOutsideTouchable(true);
@@ -154,7 +146,6 @@ public class TermDetailsActivity extends AppCompatActivity {
                     menu.dismiss();
                     course.setTermId(termId);
                     mViewModel.overwriteCourse(course, termId);
-                    Toast.makeText(getApplicationContext(), "Item Selected: " + course.getTitle(), Toast.LENGTH_SHORT).show();
                 });
             } else { // No unassigned courses.  Notify user.
                 Toast.makeText(getApplicationContext(), "There are no unassigned courses.  Create a new course.", Toast.LENGTH_SHORT).show();
@@ -167,5 +158,24 @@ public class TermDetailsActivity extends AppCompatActivity {
 
     private int getPxFromDp(int dp) {
         return (int) (dp * getResources().getDisplayMetrics().density);
+    }
+
+    @Override
+    public void onCourseSelected(int position, Course course) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle("Are you sure you want to remove this course?");
+        builder.setMessage("This will not delete the course, only remove it from this term.");
+        builder.setIcon(android.R.drawable.ic_dialog_alert);
+        builder.setPositiveButton("Continue", (dialog, id) -> {
+            dialog.dismiss();
+            mViewModel.overwriteCourse(course, -1);
+            mCourseAdapter.notifyDataSetChanged();
+//                mCourses.remove(position);
+//                notifyItemRemoved(position);
+//                notifyItemRangeChanged(position, mCourses.size());
+        });
+
+        mViewModel.overwriteCourse(course, -1);
+        mCourseAdapter.notifyDataSetChanged();
     }
 }
