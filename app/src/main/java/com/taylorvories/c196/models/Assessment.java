@@ -9,6 +9,9 @@ import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
+/**
+ * Assessment model.  Stores assessment data.
+ */
 @Entity(tableName = "assessments")
 public class Assessment {
     @PrimaryKey(autoGenerate = true)

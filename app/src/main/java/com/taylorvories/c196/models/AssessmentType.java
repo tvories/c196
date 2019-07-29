@@ -1,5 +1,9 @@
 package com.taylorvories.c196.models;
 
+/**
+ * Enum to assist with the type of assessments available.
+ */
+
 public enum AssessmentType {
     OA {
         @Override

@@ -15,14 +15,23 @@ import com.taylorvories.c196.models.Mentor;
 import com.taylorvories.c196.models.Term;
 import com.taylorvories.c196.utilities.SampleData;
 
+/**
+ * Taylor Vories
+ * WGU C196
+ * This class is part of the MVVM Lifecycle components.  It is the only class that has
+ * direct access to the database.  If this app used a web service, it would also handle that access.
+ */
+
 public class AppRepository {
     private static AppRepository ourInstance;
+    // LiveData lists of the models to observe
     public LiveData<List<Term>> mTerms;
     public LiveData<List<Course>> mCourses;
     public LiveData<List<Assessment>> mAssessments;
     public LiveData<List<Mentor>> mMentors;
 
     private AppDatabase mDb;
+    // To execute database queries off the main thread
     private Executor executor = Executors.newSingleThreadExecutor();
 
     public static AppRepository getInstance(Context context) {
@@ -40,6 +49,9 @@ public class AppRepository {
         mMentors = getAllMentors();
     }
 
+    /**
+     * Adds sample data to the app to make it easier to troubleshoot and visualize
+     */
     public void addSampleData() {
         executor.execute(() -> mDb.termDao().insertAll(SampleData.getTerms()));
         executor.execute(() -> mDb.courseDao().insertAll(SampleData.getCourses()));
@@ -51,6 +63,9 @@ public class AppRepository {
         return mDb.termDao().getAll();
     }
 
+    /**
+     * Deletes all database data so you can start fresh
+     */
     public void deleteAllData() {
         executor.execute(() -> mDb.termDao().deleteAll());
         executor.execute(() -> mDb.courseDao().deleteAll());
@@ -58,10 +73,19 @@ public class AppRepository {
         executor.execute(() -> mDb.mentorDao().deleteAll());
     }
 
+    /**
+     * Gets term by unique term ID
+     * @param termId ID in database for term
+     * @return Term found in database
+     */
     public Term getTermById(int termId) {
         return mDb.termDao().getTermById(termId);
     }
 
+    /**
+     * Inserts (and overwrites) term in db
+     * @param term Term to insert.
+     */
     public void insertTerm(final Term term) {
         executor.execute(() -> mDb.termDao().insertTerm(term));
     }

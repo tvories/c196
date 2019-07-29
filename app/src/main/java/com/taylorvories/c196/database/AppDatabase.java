@@ -12,6 +12,13 @@ import com.taylorvories.c196.models.Course;
 import com.taylorvories.c196.models.Mentor;
 import com.taylorvories.c196.models.Term;
 
+/**
+ * Taylor Vories
+ * WGU C196
+ * This class sets up the database.  It is referenced by the AppRepository class.
+ * That is the only class that has direct access to this database class.
+ */
+
 @Database(entities = {Term.class, Course.class, Assessment.class, Mentor.class}, version = 8)
 @TypeConverters({DateConverter.class, CourseStatusConverter.class, AssessmentTypeConverter.class})
 public abstract class AppDatabase extends RoomDatabase {
@@ -19,6 +26,7 @@ public abstract class AppDatabase extends RoomDatabase {
     private static volatile AppDatabase instance;
     private static final Object LOCK = new Object();
 
+    // Individual model daos
     public abstract TermDao termDao();
     public abstract CourseDao courseDao();
     public abstract AssessmentDao assessmentDao();

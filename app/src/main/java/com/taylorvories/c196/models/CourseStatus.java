@@ -1,5 +1,8 @@
 package com.taylorvories.c196.models;
 
+/**
+ * Enum to help track course status options.
+ */
 public enum CourseStatus {
     IN_PROGRESS {
         @Override
