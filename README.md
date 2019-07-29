@@ -40,6 +40,41 @@ dependencies {
 Open this project in Android Studio and build.  As long as the gradle file is there, everything should build successfully.
 
 ## The app
-The app consists of 1 primary activity and 4 sub activities.  The primary activity is the home screen.
+The app consists of 1 primary activity and 4 sub activities.
 
-(screenshot)
+#### The Main Activity
+![MainScreen](images/mainscreen.png)
+
+The main screen provides navigation to all of the sub-activities.  
+
+It also features a drawer navigation that is not fully functional.  It started as an experiment but ended up requiring too much reworking to fully implement.  I wanted to leave it in because it looks nice and it was something I would like to include in future projects.
+
+![NavigationDrawer](images/navigation_drawer.png)
+
+The app features a menu bar that allows the user to load sample data or delete the database data and start over.
+
+![Menu](images/menu.gif)
+
+### Term Activity
+
+The Term activity allows the user to view their terms.  They can go to a detailed view of their term or edit the term by clicking the edit Floating Action Button.  They can also create a new term by hitting the + button.
+
+![TermActivity](images/term_activity.png)
+
+### Courses Activity
+
+The Courses activity allows the user to view their courses.  They can view details, edit the course, or add a new course.
+
+![CourseActivity](images/course_activity.png)
+
+### Assessment Activity
+
+The Assessment activity allows the user to view their assessments and their due dates.  They can add or edit these assessments.
+
+![AssessmentActivity](images/assessment_activity.png)
+
+### Mentor Activity
+
+The mentor activity provides a location for the user to view their course mentors and their contact information.  Mentors can be assigned to a course in the course details page.
+
+![MentorActivity](images/mentor_activity.png)
