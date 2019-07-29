@@ -240,6 +240,17 @@ public class CourseDetailsActivity extends AppCompatActivity implements Assessme
         dialog.show();
     }
 
+    @OnClick(R.id.course_detail_share_fab)
+    public void shareNote() {
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        String shareBody = tvCourseNote.getText().toString();
+        String shareSub = "Notes for course: " + getTitle();
+        intent.putExtra(Intent.EXTRA_SUBJECT, shareSub);
+        intent.putExtra(Intent.EXTRA_TEXT, shareBody);
+        startActivity(Intent.createChooser(intent, "Share using"));
+    }
+
     private int getPxFromDp(int dp) {
         return (int) (dp * getResources().getDisplayMetrics().density);
     }

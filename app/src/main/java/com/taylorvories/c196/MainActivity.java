@@ -1,6 +1,10 @@
 package com.taylorvories.c196;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Bundle;
 
 import com.google.android.material.navigation.NavigationView;
@@ -10,6 +14,7 @@ import com.taylorvories.c196.models.Mentor;
 import com.taylorvories.c196.models.Term;
 import com.taylorvories.c196.ui.RecyclerContext;
 import com.taylorvories.c196.ui.TermAdapter;
+import com.taylorvories.c196.utilities.Alerting;
 import com.taylorvories.c196.viewmodel.MainViewModel;
 
 import androidx.annotation.NonNull;
@@ -21,13 +26,17 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.text.format.DateUtils;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import butterknife.ButterKnife;
@@ -65,13 +74,53 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         ButterKnife.bind(this);
 
         initViewModel();
-
         // Initialize status text views
         termStatus = findViewById(R.id.status_terms_count);
         courseStatus = findViewById(R.id.status_courses_count);
         assessmentStatus = findViewById(R.id.status_assessments_count);
         mentorStatus = findViewById(R.id.status_mentors_count);
+    }
 
+    private void handleAlerts() {
+        Log.v("TAYBUG", "We are handling alerts");
+        ArrayList<String> alerts = new ArrayList<>();
+
+        Log.v("TAYBUG", "Courses: " + courseData.size() + "\nAssessments: " + assessmentData.size());
+
+        // Loop through Courses to find start and end dates.
+        for(Course course: courseData) {
+            Log.v("TAYBUG", "We are looping through courses to find due dates");
+            if(DateUtils.isToday(course.getStartDate().getTime())) {
+                Log.v("DEBUG", "Start date is today.");
+                alerts.add("Course " + course.getTitle() + " begins today!");
+            } else if(DateUtils.isToday(course.getAnticipatedEndDate().getTime())) {
+                Log.v("DEBUG", "End date is today!");
+                alerts.add("Course" + course.getTitle() + " ends today!");
+            }
+        }
+
+        // Loop through assessments to find start dates
+        for(Assessment assessment: assessmentData) {
+            Log.v("TAYBUG", "We are looping through assessments to find due dates");
+            if(DateUtils.isToday(assessment.getDate().getTime())) {
+                Log.v("DEBUG", "Assessment due date is today");
+                alerts.add("Assessment " + assessment.getTitle() + " is due today!");
+            }
+        }
+        // Toast the alerts one at a time
+        if(alerts.size() > 0) {
+            for(String alert: alerts) {
+                AlarmManager alarm = (AlarmManager)this.getSystemService(Context.ALARM_SERVICE);
+                Alerting alerting = new Alerting();
+                IntentFilter filter = new IntentFilter("ALARM_ACTION");
+                registerReceiver(alerting, filter);
+
+                Intent intent = new Intent("ALARM_ACTION");
+                intent.putExtra("param", alert);
+                PendingIntent operation = PendingIntent.getBroadcast(this, 0, intent, 0);
+                alarm.set(AlarmManager.RTC_WAKEUP, System.currentTimeMillis()+ Toast.LENGTH_SHORT, operation);
+            }
+        }
     }
 
     private void setStatusNumbers(int count, TextView textView) {
@@ -99,6 +148,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 courseData.addAll(courseEntities);
                 // Updates course status number
                 setStatusNumbers(courseEntities.size(), courseStatus);
+                handleAlerts();
             };
 
         // Assessment observer
@@ -108,6 +158,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 assessmentData.addAll(assessmentEntities);
                 // Updates assessment status number
                 setStatusNumbers(assessmentEntities.size(), assessmentStatus);
+                handleAlerts();
             };
 
         // Mentor observer
