@@ -39,31 +39,65 @@ dependencies {
 ## How to build
 Open this project in Android Studio and build.  As long as the gradle file is there, everything should build successfully.
 
-## The app
+## StoryBoard and How to Use the App
 The app consists of 1 primary activity and 4 sub activities.
 
-#### The Main Activity
-![MainScreen](images/mainscreen.png)
+### The Main Activity
+![MainScreen](images/main1.png)
 
-The main screen provides navigation to all of the sub-activities.  
+The main screen provides navigation to the 4 sub-activities.  I intended to create a navigation drawer but it would have required me to completely revamp the project.  I did leave it in there because it is how I would like it to look if given the chance.
 
-It also features a drawer navigation that is not fully functional.  It started as an experiment but ended up requiring too much reworking to fully implement.  I wanted to leave it in because it looks nice and it was something I would like to include in future projects.
+**The Navigation Drawer**
 
-![NavigationDrawer](images/navigation_drawer.png)
+![NavigationDrawer](images/main_drawer.png)
 
 The app features a menu bar that allows the user to load sample data or delete the database data and start over.
 
 ![Menu](images/menu.gif)
 
+#### Navigate to the Sub-Activities
+
+In order to navigate to the sub-activies of the app, simply click on any of the icons or titles (Terms, Courses, etc.)
+
 ### Term Activity
 
-The Term activity allows the user to view their terms.  They can go to a detailed view of their term or edit the term by clicking the edit Floating Action Button.  They can also create a new term by hitting the + button.
+The Term activity allows the user to view their terms.  They can go to a detailed view of the term by clicking on the card (anywhere except for the edit icon) or edit the term by clicking the edit Floating Action Button.  They can also create a new term by hitting the + button.
 
 ![TermActivity](images/term_activity.png)
 
+#### Term Edit Activity
+
+By selecting the edit icon Floating Action Button, the user navigates to the Term Edit Activity (`TermEditActivity.java`).  In that activity, the user can edit the Term title, start date, end date, or delete the term.
+
+![TermEditActivity](images/term_edit_activity.png)
+
+When the user is done editing, they can hit the Save button in the top left of the screen to save the edited term.
+
+#### Term Details Activity
+
+By selecting the Term CardView ([Shown here](#term-activity)), the user opens the Term Detail Activity (`TermDetailActivity.java`).  The Term Detail Activity allows the user to view the term details as well as add or remove courses in a term.
+
+![TermDetailActivity](images/term_detail_activity.png)
+
+##### Add a Course to a Term
+
+To add a course to a term, the user should click the + icon in the Term Detail Activity.  If the user chooses the *New* course option, they will be taken to the [Course Edit Activity](#courses-activity).
+
+![AddCourseToTerm](images/term_add_course.png)
+
+If the user wants to add an existing course to a term, they can select the Existing option.  This will create a dropdown list of any Courses that are currently not assigned to a term.
+
+![AddExistingCourse](images/term_add_existing_course.png)
+
+Once the course is added, it will show up in the Term Details section.
+
+![ExistingCourseAdded](images/term_add_existing_result.png)
+
+
+
 ### Courses Activity
 
-The Courses activity allows the user to view their courses.  They can view details, edit the course, or add a new course.
+The Courses activity allows the user to view their courses.  They can view details, edit the course, or add a new course.  A dialog message will display asking the user whether they want to create a new Course or add an existing course.  This allows the user to move a course to a different term.
 
 ![CourseActivity](images/course_activity.png)
 
