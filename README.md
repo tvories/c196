@@ -75,7 +75,7 @@ When the user is done editing, they can hit the Save button in the top left of t
 
 #### Term Details Activity
 
-By selecting the Term CardView ([Shown here](#term-activity)), the user opens the Term Detail Activity (`TermDetailActivity.java`).  The Term Detail Activity allows the user to view the term details as well as add or remove courses in a term.
+By selecting the Term CardView ([Shown here](#term-activity)), the user opens the Term Detail Activity (`TermDetailsActivity.java`).  The Term Detail Activity allows the user to view the term details as well as add or remove courses in a term.
 
 ![TermDetailActivity](images/term_detail_activity.png)
 
@@ -101,14 +101,70 @@ The Courses activity allows the user to view their courses.  They can view detai
 
 ![CourseActivity](images/course_activity.png)
 
+#### Course Edit Activity
+
+By selcting one of the Edit buttons for an existing course or the + button for a new course.  You can add the details for the course and then save it with the Save button or delete it (if already existing) with the delete button.
+
+![CourseEditActivity](images/course_edit.png)
+
+#### Course Detail Activity
+
+By selecting the Course CardView ([Shown here](#courses-activity)), the user opens the Course Detail Activity (`CourseDetailsActivity.java`).  The Course Detail Activity allows the user to view the course details as well as add or remove Assessments and Mentors in a term.
+
+![CourseDetails](images/course_details.png)
+
+##### Add an Assessment to a course
+
+By clicking the + button in the Assessment section ([see here](#courses-activity)) to add an existing assessment to a course or to create a new assessment for that course.
+
+If the user chooses the *New* Assessment option, they will be taken to the [Assessment Edit Activity](#assessment-activity).
+
+![AddAssessmentToCourse](images/course_add_assessment.png)
+
+If the user wants to add an existing Assessment to a course, they can select the Existing option.  This will create a dropdown list of any Assessments that are currently not assigned to another course.
+
+![AddExistingAssessment](images/course_add_existing_assessment.png)
+
+Once the Assessment is added, it will show up in the Course Details section.
+
+![ExistingAssessmentAdded](images/course_add_existing_assessment_result.png)
+
+##### Add a Mentor to a Course
+
+This process is the same as the [Add Assessment to a Course](#add-an-assessment-to-a-course) process.
+
 ### Assessment Activity
 
-The Assessment activity allows the user to view their assessments and their due dates.  They can add or edit these assessments.
+The Assessment activity allows the user to view their assessments and their due dates.  They can view details, edit the Assessment, or add a new Assessment.  A dialog message will display asking the user whether they want to create a new Assessment or add an existing Assessment.
 
 ![AssessmentActivity](images/assessment_activity.png)
+
+#### Assessment Edit Activity
+
+By selcting one of the Edit buttons for an existing Assessment or the + button for a new Assessment.  You can add the details for the Assessment and then save it with the Save button or delete it (if already existing) with the delete button.
+
+![AssessmentEditActivity](images/assessment_edit.png)
+
+#### Assessment Detail Activity
+
+By selecting the Assessment CardView ([Shown here](#assessment-activity)), the user opens the Assessment Detail Activity (`AssessmentDetailsActivity.java`).  
+
+![AssessmentDetails](images/assessment_details.png)
 
 ### Mentor Activity
 
 The mentor activity provides a location for the user to view their course mentors and their contact information.  Mentors can be assigned to a course in the course details page.
 
 ![MentorActivity](images/mentor_activity.png)
+
+#### Mentor Edit Activity
+
+By selcting one of the Edit buttons for an existing Mentor or the + button for a new Mentor.  You can add the details for the Mentor and then save it with the Save button or delete it (if already existing) with the delete button.
+
+![MentorEditActivity](images/mentor_edit.png)
+
+#### Mentor Detail Activity
+
+By selecting the Mentor CardView ([Shown here](#mentor-activity)), the user opens the Mentor Detail Activity (`MentorDetailsActivity.java`).  
+
+![MentorDetails](images/mentor_details.png)
